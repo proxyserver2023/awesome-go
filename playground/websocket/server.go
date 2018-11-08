@@ -14,7 +14,7 @@ func checkError(err error){
 }
 
 func handleClientConnection(conn net.Conn) {
-	for {
+	for i:=0; i<100; i++ {
 		data := "Hello World"
 		conn.Write([]byte(data))
 		time.Sleep(100*time.Millisecond)
