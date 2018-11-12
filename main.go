@@ -3,59 +3,60 @@ package main
 import "fmt"
 
 type Human struct {
-	name   string
-	age    int
-	weight int
+	name string
+	age  int
 }
 
 type Student struct {
-	Human     // embedded
-	specialty string
+	Human
+	college string
+	subject string
 }
 
+type Employee struct {
+	Human
+	company string
+}
+
+func (h *Human) sayHi() {
+	fmt.Printf("%T\n", h)
+	fmt.Println(h.name, h.age)
+}
+
+// func (h *Student) sayHi() {
+// 	fmt.Printf("%T\n", h)
+// 	fmt.Println(h.name, h.age)
+// }
+
+// func (h *Employee) sayHi() {
+// 	fmt.Printf("%T\n", h)
+// 	fmt.Println(h.name, h.age)
+// }
+
 func main() {
-	// cmd.Execute()
-	mark := Student{
-		Human{
-			"Mark",
-			25,
-			120,
-		},
-		"Computer Science",
+	h := Human{
+		name: "alamin-human",
+		age:  24,
 	}
 
-	// access fields
-	mark.Human = Human{"Marcus", 55, 220}
-	mark.Human.age--
+	h.sayHi()
 
-	fmt.Println("His name is ", mark.name)
-	fmt.Println("His age is ", mark.age)
-	fmt.Println("His weight is ", mark.weight)
-	fmt.Println("His specialty is ", mark.specialty)
-
-	// modify mark's specialty
-	mark.specialty = "AI"
-	fmt.Println("Mark changed his specialty")
-	fmt.Println("His specialty is ", mark.specialty)
-
-	fmt.Println("Mark become old. He is not an athlete anymore")
-	mark.age = 46
-	mark.weight += 60
-	fmt.Println("His age is", mark.age)
-	fmt.Println("His weight is", mark.weight)
-
-	alamin := Student{
+	s := Student{
 		Human: Human{
-			name:   "alamin",
-			age:    24,
-			weight: 75,
+			name: "Alamin-Student",
+			age:  24,
 		},
-		specialty: "Software Development",
+		college: "Dhaka College",
+		subject: "Science",
 	}
+	s.sayHi()
 
-	fmt.Println(alamin.name)
-	fmt.Println(alamin.age)
-	fmt.Println(alamin.weight)
-	fmt.Println(alamin.specialty)
-
+	e := Employee{
+		Human: Human{
+			name: "Alamin-Employee",
+			age:  24,
+		},
+		company: "Golang Inc",
+	}
+	e.sayHi()
 }
