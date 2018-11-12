@@ -23,15 +23,15 @@ func (h *Human) sayHi() {
 	fmt.Println(h.name, h.age)
 }
 
-// func (h *Student) sayHi() {
-// 	fmt.Printf("%T\n", h)
-// 	fmt.Println(h.name, h.age)
-// }
+func (h *Student) sayHi() {
+	fmt.Printf("%T\n", h)
+	fmt.Println(h.name, h.age)
+}
 
-// func (h *Employee) sayHi() {
-// 	fmt.Printf("%T\n", h)
-// 	fmt.Println(h.name, h.age)
-// }
+func (h *Employee) sayHi() {
+	fmt.Printf("%T\n", h)
+	fmt.Println(h.name, h.age)
+}
 
 func main() {
 	h := Human{
