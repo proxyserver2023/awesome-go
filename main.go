@@ -1,63 +1,26 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"strconv"
+)
 
 type Human struct {
-	name string
-	age  int
+	name  string
+	age   int
+	phone string
 }
 
-type Student struct {
-	Human
-	college string
-	subject string
-}
-
-type Employee struct {
-	Human
-	company string
-}
-
-func (h *Human) sayHi() {
-	fmt.Printf("%T\n", h)
-	fmt.Println(h.name, h.age)
-}
-
-func (h *Student) sayHi() {
-	fmt.Printf("%T\n", h)
-	fmt.Println(h.name, h.age)
-}
-
-func (h *Employee) sayHi() {
-	fmt.Printf("%T\n", h)
-	fmt.Println(h.name, h.age)
+func (h Human) String() string {
+	return "Name:" + h.name + ", Age:" + strconv.Itoa(h.age) + " years, Contact:" + h.phone
 }
 
 func main() {
-	h := Human{
-		name: "alamin-human",
-		age:  24,
+	bob := Human{
+		name:  "Alamin",
+		age:   24,
+		phone: "+880 168 70 60 434",
 	}
 
-	h.sayHi()
-
-	s := Student{
-		Human: Human{
-			name: "Alamin-Student",
-			age:  24,
-		},
-		college: "Dhaka College",
-		subject: "Science",
-	}
-	s.sayHi()
-
-	e := Employee{
-		Human: Human{
-			name: "Alamin-Employee",
-			age:  24,
-		},
-		company: "Golang Inc",
-	}
-	e.sayHi()
-	fmt.Println("EMOJI")
+	fmt.Println("The Human is", bob)
 }
