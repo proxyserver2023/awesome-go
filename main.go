@@ -5,22 +5,36 @@ import (
 	"strconv"
 )
 
-type Human struct {
-	name  string
-	age   int
-	phone string
+type Element interface{}
+type List []Element
+
+type Person struct {
+	name string
+	age  int
 }
 
-func (h Human) String() string {
-	return "Name:" + h.name + ", Age:" + strconv.Itoa(h.age) + " years, Contact:" + h.phone
+func (p Person) String() string {
+	return "(name: " + p.name + " - age:    " + strconv.Itoa(p.age) + " years)"
 }
 
 func main() {
-	bob := Human{
-		name:  "Alamin",
-		age:   24,
-		phone: "+880 168 70 60 434",
+	list := make(List, 3)
+
+	list[0] = 1
+	list[1] = "2 as a string"
+	list[2] = Person{
+		name: "alamin",
+		age:  24,
 	}
 
-	fmt.Println("The Human is", bob)
+	for _, elem := range list {
+		if element, ok := elem.(int); ok {
+			fmt.Printf("%T=>%v\n", element, element)
+		} else if element, ok := elem.(string); ok {
+			fmt.Printf("%T=>%v\n", element, element)
+		} else if element, ok := elem.(Person); ok {
+			fmt.Printf("%T=>%v\n", element, element)
+		}
+	}
+
 }
