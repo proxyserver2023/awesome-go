@@ -59,4 +59,5 @@ func main() {
 		company: "Golang Inc",
 	}
 	e.sayHi()
+	fmt.Println("EMOJI")
 }
