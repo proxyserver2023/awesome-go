@@ -2,17 +2,20 @@ package main
 
 import (
 	"fmt"
+	"runtime"
 	"time"
 )
 
-func say(s string) {
+func say(s string, ii time.Duration) {
 	for i := 0; i < 5; i++ {
-		time.Sleep(1000 * time.Millisecond)
-		fmt.Println(s)
+		runtime.Gosched()
+		time.Sleep(ii * time.Millisecond)
+		fmt.Println(i, s)
 	}
 }
 
 func main() {
-	go say("world")
-	say("Hello")
+	runtime.GOMAXPROCS(4)
+	go say("world", 1000)
+	say("Hello", 1000)
 }
