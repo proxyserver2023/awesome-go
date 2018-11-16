@@ -1,15 +1,20 @@
 package main
 
-import "fmt"
+import (
+	"fmt"
+	"log"
+	"net/http"
+)
+
+func helloHandler(w http.ResponseWriter, r *http.Request) {
+	r.ParseForm()
+	fmt.Println(r.Form)
+	fmt.Println("path", r.URL)
+	fmt.Println("Header", r.Header)
+	fmt.Println("Body", r.Body)
+}
 
 func main() {
-	c := make(chan int, 10)
-
-	for i := 0; i < 10; i++ {
-		c <- i
-	}
-
-	for i := 0; i < 11; i++ {
-		fmt.Println(<-c)
-	}
+	http.HandleFunc("/", helloHandler)
+	log.Fatal(http.ListenAndServe(":8080", nil))
 }
