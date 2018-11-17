@@ -2,19 +2,23 @@ package main
 
 import (
 	"fmt"
-	"log"
-	"net/http"
 )
 
-func helloHandler(w http.ResponseWriter, r *http.Request) {
-	r.ParseForm()
-	fmt.Println(r.Form)
-	fmt.Println("path", r.URL)
-	fmt.Println("Header", r.Header)
-	fmt.Println("Body", r.Body)
-}
+const (
+	PRE_SIGNAL = iota
+	POST_SIGNAL
+
+	STATE_INIT
+	STATE_RUNNING
+	STATE_SHUTTING_DOWN
+	STATE_TERMINATE
+)
 
 func main() {
-	http.HandleFunc("/", helloHandler)
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	fmt.Println(PRE_SIGNAL)
+	fmt.Println(POST_SIGNAL)
+	fmt.Println(STATE_INIT)
+	fmt.Println(STATE_RUNNING)
+	fmt.Println(STATE_SHUTTING_DOWN)
+	fmt.Println(STATE_TERMINATE)
 }
