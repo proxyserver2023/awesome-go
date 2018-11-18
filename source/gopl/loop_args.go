@@ -19,3 +19,7 @@ func LoopArgs() {
 func LoopArgsWithJoin() {
 	fmt.Println(strings.Join(os.Args[1:], " "))
 }
+
+func LoopArgsWithZero() {
+	fmt.Println(strings.Join(os.Args[:], " "))
+}
