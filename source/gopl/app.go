@@ -1,6 +1,7 @@
 package gopl
 
 func Run() {
-	//HelloWorld()
-	LoopArgs()
+	// HelloWorld()
+	// LoopArgs()
+	LoopArgsWithJoin()
 }

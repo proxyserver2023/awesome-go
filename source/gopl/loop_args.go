@@ -3,6 +3,7 @@ package gopl
 import (
 	"fmt"
 	"os"
+	"strings"
 )
 
 func LoopArgs() {
@@ -13,4 +14,8 @@ func LoopArgs() {
 		sep = " "
 	}
 	fmt.Println(s)
+}
+
+func LoopArgsWithJoin() {
+	fmt.Println(strings.Join(os.Args[1:], " "))
 }
