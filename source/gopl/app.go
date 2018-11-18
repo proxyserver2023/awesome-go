@@ -14,9 +14,10 @@ func timeIt(f func()) {
 }
 
 func Run() {
-	timeIt(HelloWorld)
-	timeIt(LoopArgs)
-	timeIt(LoopArgsWithJoin)
-	timeIt(LoopArgsWithZero)
-	timeIt(LoopArgsWithIndex)
+	// timeIt(HelloWorld)
+	// timeIt(LoopArgs)
+	// timeIt(LoopArgsWithJoin)
+	// timeIt(LoopArgsWithZero)
+	// timeIt(LoopArgsWithIndex)
+	timeIt(DuplicateText)
 }
