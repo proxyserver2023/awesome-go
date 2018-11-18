@@ -1,0 +1,32 @@
+version: '3'
+
+services:
+  web:
+    # image: web_docker
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 5001:5001
+    depends_on:
+      - database
+    networks:
+      - mynet
+    environment:
+      - ./.env
+    links:
+      - database
+
+  database:
+    image: mysql
+    environment:
+      - ./.env
+    volumes:
+      - /tmp/mysql:/var/lib/mysql
+    networks:
+      - mynet
+    ports:
+      - 3306:3306
+networks:
+  mynet:
+    driver: "bridge"
