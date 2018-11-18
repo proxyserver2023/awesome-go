@@ -23,3 +23,9 @@ func LoopArgsWithJoin() {
 func LoopArgsWithZero() {
 	fmt.Println(strings.Join(os.Args[:], " "))
 }
+
+func LoopArgsWithIndex() {
+	for i, arg := range os.Args[:] {
+		fmt.Println(i, arg)
+	}
+}

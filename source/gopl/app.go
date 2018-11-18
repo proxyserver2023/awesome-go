@@ -4,5 +4,6 @@ func Run() {
 	// HelloWorld()
 	// LoopArgs()
 	// LoopArgsWithJoin()
-	LoopArgsWithZero()
+	// LoopArgsWithZero()
+	LoopArgsWithIndex()
 }
