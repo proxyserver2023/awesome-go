@@ -11,13 +11,17 @@ func DuplicateText() {
 
 	input := bufio.NewScanner(os.Stdin)
 	m := make(map[string]int)
-	for input.Scan() {
+	for i := 0; input.Scan(); i++ {
+		// fmt.Println(input.Text())
 		m[input.Text()]++
+		if i > 10 {
+			break
+		}
 	}
 
-	for _, mId := range m {
+	for i, mId := range m {
 		if mId > 1 {
-			fmt.Println(mId)
+			fmt.Println(i, mId)
 		}
 	}
 
