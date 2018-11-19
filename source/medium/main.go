@@ -2,18 +2,15 @@ package main
 
 import "fmt"
 
+type X struct {
+	name string
+	next *X
+}
+
 func main() {
-	{
-		// Start Outer Block
-		a := 1
-		fmt.Println(a)
-		{
-			// Start Inner Block
-			a := 2
-			fmt.Println(a)
-			// End   Inner Block
-		}
-		fmt.Println(a)
-		// End   Outer Block
-	}
+	//x := X{name: "foo", next: &X{name: "bar"}}
+	x := X{name: "alamin", next: &X{name: "ashraf"}}
+	fmt.Println(x.name)
+	fmt.Println(x.next.name)
+	fmt.Println(x.next.next)
 }
