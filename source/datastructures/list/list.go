@@ -1,26 +1,52 @@
 package list
 
-import "errors"
+type list struct {
+	head interface{}
+	tail PersistentList
+}
 
-type emptyList struct{}
+func (l *list) Head() (interface{}, bool) {
+	return l.head, true
+}
 
-var (
-	Empty PersistentList = &emptyList{}
+func (l *list) Tail() (PersistentList, bool) {
+	return l.tail, true
+}
 
-	ErrEmptyList = errors.New("Empty List")
-)
+func (l *list) IsEmpty() bool {
+	return false
+}
 
-// PersistentList What is this? :TODO:
-type PersistentList interface {
-	Head() (interface{}, bool)
-	Tail() (PersistentList, bool)
-	IsEmpty() bool
-	Length() uint
-	Add(head interface{}) PersistentList
-	Insert(val interface{}, pos uint) (PersistentList, error)
-	Get(pos uint) (interface{}, error)
-	Remove(pos uint) (PersistentList, error)
-	Find(func(interface{}) bool) (interface{}, bool)
-	FindIndex(func(interface{}) bool) int
-	Map(func(interface{}) interface{}) []interface{}
+func (l *list) Length() uint {
+	curr := l
+	length := uint(0)
+
+	for {
+		length++
+		tail, _ := curr.Tail()
+
+		if tail.IsEmpty() {
+			return length
+		}
+
+		curr = tail.(*list)
+	}
+}
+
+func (l *list) Add(head interface{}) PersistentList {
+	return &list{head, l}
+}
+
+func (l *list) Insert(val interface{}, pos uint) (PersistentList, error) {
+	if pos == 0 {
+		return l.Add(val), nil
+	}
+
+	nl, err := l.tail.Insert(val, pos-1)
+	if err != nil {
+		return nil, err
+	}
+
+	return nl.Add(l.head), nil
+
 }
