@@ -2,29 +2,39 @@ package main
 
 import "fmt"
 
-// A is the base type in this package
-type A struct {
-	year int
+type Cat struct {
+	name string
 }
 
-// Greet greets us with a string
-func (a A) Greet() { fmt.Println("Hello", a.year) }
-
-// B is another type composed with A
-type B struct {
-	A
+func (c Cat) printLegs() int {
+	fmt.Printf("%T => %v\n", c, c)
+	return 4
 }
 
-// Greet Overriding it
-func (b B) Greet() { fmt.Println("Welcome", b.year) }
+type OctoCat struct {
+	Cat
+}
+
+func (c Cat) legs() int {
+	return 4
+}
+
+func (o OctoCat) legs() int {
+	return 5
+}
 
 func main() {
-	var a A
-	a.year = 2016
+	var o = OctoCat{Cat: Cat{name: "Hello"}}
+	var c = Cat{name: "World"}
 
-	var b B
-	b.year = 2018
+	// Octocat
+	fmt.Println(o.printLegs())       // main.Cat -> {Hello} // 4
+	fmt.Println(o.legs())            // 4
+	fmt.Println("o.cat =>", o.Cat)   // {Hello}
+	fmt.Println("o.name =>", o.name) // Hello
 
-	a.Greet()
-	b.Greet()
+	// Cat
+	fmt.Println(c.printLegs())       // main.Cat => {World} // 4
+	fmt.Println(c.legs())            // 4
+	fmt.Println("c.name =>", c.name) // World
 }
