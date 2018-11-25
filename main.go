@@ -2,16 +2,29 @@ package main
 
 import (
 	"fmt"
+	"sort"
 )
 
-func main() {
-	a := make(map[int]string)
-	a[1] = "Hello"
-	a[2] = "World"
-	a[3] = "Nawaz"
-	a[4] = "Varun"
-	a[5] = "Huma"
+type Person struct {
+	Name string
+	Age  int
+}
 
-	val, ok := a[6]
-	fmt.Println(val, ok)
+func (p Person) String() string {
+	return fmt.Sprintf("%s: %d", p.Name, p.Age)
+}
+
+func main() {
+	persons := []Person{
+		{"Alamin", 24},
+		{"Jahangir", 34},
+		{"Shoeb", 39},
+	}
+
+	fmt.Println(persons)
+	fmt.Println(Person{"Alamin", 24})
+	sort.Slice(persons, func(i, j int) bool {
+		return persons[i].Age > persons[j].Age
+	})
+	fmt.Println(persons)
 }
