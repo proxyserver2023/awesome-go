@@ -1,30 +1,28 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"sort"
+	"time"
 )
 
-type Person struct {
+type Message struct {
 	Name string
-	Age  int
-}
-
-func (p Person) String() string {
-	return fmt.Sprintf("%s: %d", p.Name, p.Age)
+	Body string
+	Time int64
 }
 
 func main() {
-	persons := []Person{
-		{"Alamin", 24},
-		{"Jahangir", 34},
-		{"Shoeb", 39},
+	m := Message{
+		"alamin",
+		"I want something like this.",
+		time.Now().Unix(),
 	}
 
-	fmt.Println(persons)
-	fmt.Println(Person{"Alamin", 24})
-	sort.Slice(persons, func(i, j int) bool {
-		return persons[i].Age > persons[j].Age
-	})
-	fmt.Println(persons)
+	byt, _ := json.Marshal(m)
+	fmt.Println(byt)
+
+	n := Message{}
+	_ = json.Unmarshal(byt, &n)
+	fmt.Println(n)
 }
