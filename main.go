@@ -1,28 +1,28 @@
 package main
 
-import (
-	"encoding/json"
-	"fmt"
-	"time"
-)
-
-type Message struct {
-	Name string
-	Body string
-	Time int64
-}
+import "fmt"
 
 func main() {
-	m := Message{
-		"alamin",
-		"I want something like this.",
-		time.Now().Unix(),
+	m := make(map[string]string)
+	m["key1"] = "value1"
+	m["key2"] = "value2"
+
+	fmt.Println("map: => ", m)
+
+	v1 := m["key1"]
+	v2 := m["key2"]
+	fmt.Println("len:", len(m), " v1: ", v1, " v2: ", v2)
+
+	delete(m, "key2")
+	fmt.Println("map: => ", m)
+
+	_, ok := m["k2"]
+	fmt.Println("m[k2] exists ? ", ok)
+
+	n := map[string]int{
+		"foo":    1,
+		"bar":    2,
+		"foobar": 3,
 	}
-
-	byt, _ := json.Marshal(m)
-	fmt.Println(byt)
-
-	n := Message{}
-	_ = json.Unmarshal(byt, &n)
 	fmt.Println(n)
 }
