@@ -1,5 +1,14 @@
 # The Go Programming Language
 
+## GO MOD
+1. `go mod init`
+2. go.mod => describes packages with versions
+3. go.sum => tracks whether the versions changed or not with a HASH.
+4. `go mod tidy` => tides up all the code
+5. `go mod vendor` => create a vendor dir
+6. `go mod why -m <package name>` => why we are depending on the lib
+7. `go get ./...` => install every deps
+
 ## Preface
 1. Approach of data abstraction and OOP
 2. Native support of concurrency.
