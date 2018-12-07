@@ -2,5 +2,8 @@ package random
 
 func Run() {
 	// arun()
-	brun()
+	// brun()
+	// crun()
+	// drun()
+	prun()
 }

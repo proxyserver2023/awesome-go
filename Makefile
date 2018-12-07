@@ -16,4 +16,8 @@ unittest:
 clean:
 	if [ -f ${BINARY} ] ; then rm ${BINARY} ; fi
 
-.PHONY: clean install unittest
+run:
+	go build -o ${BINARY}
+	./${BINARY}
+
+.PHONY: clean install unittest run
