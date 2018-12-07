@@ -9,7 +9,7 @@ end_of_line = LF
 charset = utf-8
 # 4 space indent
 indent_style = space
-indent_size = 4
+indent_size = 8
 # Ensure file ends with a newline when saving(prevent `no newline at EOF`)
 insert_final_newline = true
 # Remove any whitespace characters preceding newline characters
