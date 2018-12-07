@@ -1,5 +1,6 @@
 package random
 
 func Run() {
-	arun()
+	// arun()
+	brun()
 }
