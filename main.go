@@ -1,7 +1,7 @@
 package main
 
-import "github.com/alamin-mahamud/awesome-go/v7"
+import "github.com/alamin-mahamud/awesome-go/v8/pkg/config"
 
 func main() {
-	v7.Run()
+	config.Load("config.local.yaml")
 }
