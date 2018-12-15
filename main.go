@@ -1,39 +1,28 @@
 package main
 
 import (
+	"bufio"
+	"context"
 	"fmt"
-	"io/ioutil"
-	"log"
-	"strings"
+	"os"
+	"time"
 )
 
-func ioUtil() {
-	r := strings.NewReader(
-		"Go is a general purpose",
-		)
-	b, err := ioutil.ReadAll(r)
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("%s", b)
-}
-
-func ioUtilReadDir() {
-	files, err := ioutil.ReadDir(".")
-	if err != nil {
-		log.Fatal(err)
-	}
-
-	for _, file := range files {
-		fmt.Println(file.Name())
-	}
+func sleepAndTalk(ctx context.Context, d time.Duration, msg string) {
+	time.Sleep(d)
+	fmt.Println(msg)
 }
 
 func main() {
-	content, err := ioutil.ReadFile("Makefile")
-	if err != nil {
-		log.Fatal(err)
-	}
-	fmt.Printf("File Contents: %s", content)
+	ctx := context.Background()
+	ctx, cancel := context.WithCancel(ctx)
+
+	go func() {
+		s := bufio.NewScanner(os.Stdin)
+		s.Scan()
+		cancel()
+	}()
+
+	sleepAndTalk(ctx, 5 * time.Second, "Hello")
 }
 
