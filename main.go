@@ -1,28 +1,7 @@
 package main
 
-import (
-	"bufio"
-	"context"
-	"fmt"
-	"os"
-	"time"
-)
-
-func sleepAndTalk(ctx context.Context, d time.Duration, msg string) {
-	time.Sleep(d)
-	fmt.Println(msg)
-}
+import "github.com/alamin-mahamud/awesome-go/v7"
 
 func main() {
-	ctx := context.Background()
-	ctx, cancel := context.WithCancel(ctx)
-
-	go func() {
-		s := bufio.NewScanner(os.Stdin)
-		s.Scan()
-		cancel()
-	}()
-
-	sleepAndTalk(ctx, 5 * time.Second, "Hello")
+	v7.Run()
 }
-
