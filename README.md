@@ -145,3 +145,13 @@ b := make([]int, 0, 5) // len(b) = 0; cap(b) = 5
 b = b[:cap(b)]         // len(b) = 5; cap(b) = 5
 b = b[1:]              // len(b) = 4; cap(b) = 4
 ```
+
+* Slices of slices
+
+``` go
+board := [][]string{
+    []string{"_", "_", "_"},
+    []string{"_", "_", "_"},
+    []string{"_", "_", "_"},
+}
+```
