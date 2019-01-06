@@ -22,3 +22,17 @@ func split(sum int) (x, y int) {
     return
 }
 ```
+
+* Stacking Defers
+
+``` go
+func main() {
+	fmt.Println("counting")
+
+	for i := 0; i < 10; i++ {
+		defer fmt.Println(i)
+	}
+
+	fmt.Println("done")
+}
+```
