@@ -117,3 +117,18 @@ s = s[2:] // droping its first two values
 // cap(s)     => 5
 // Println(s) => []
 ```
+
+* Nil value of slice
+  - the zero value of slice is nil
+  - nil slice has a length and capacity of 0 and has `no underlying array`.
+
+```go
+var s []int
+// Println(s) => []
+// len(s)     => 0
+// cap(s)     => 0
+
+if s == nil {
+    fmt.Println("nil!")
+}
+```
