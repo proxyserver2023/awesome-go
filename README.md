@@ -89,3 +89,31 @@ s := []struct{
     }
 ```
 First an array is created then builds a slice that references it.
+
+* Slice Length and capacity
+  + length: number of element it contains
+  + capacity: number of elements in the underlying array, counting fromt the first element in the slice.
+  + we can extend slice if it has enough capacity. extending beyond capacity throws `panic: runtime error: slice bounds out of range`
+
+
+``` go
+s := []int{1,2,3,4,5,6,7}
+// len(s)     => 7
+// cap(s)     => 7
+// Println(s) => [1,2,3,4,5,6,7]
+
+s = s[:0]
+// len(s)     => 0
+// cap(s)     => 7
+// Println(s) => []
+
+s = s[:2] // extending it 2nd element
+// len(s)     => 2
+// cap(s)     => 7
+// Println(s) => [1 2]
+
+s = s[2:] // droping its first two values
+// len(s)     => 0
+// cap(s)     => 5
+// Println(s) => []
+```
