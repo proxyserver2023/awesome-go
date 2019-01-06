@@ -193,3 +193,16 @@ func main() {
 }
 
 ```
+
+* Maps
+
+``` go
+type Vertex struct{Lat, Long float64}
+var m map[string]Vertex
+
+func main() {
+    m = make(map[string]Vertex)
+    m["Bell Labs"] = Vertex{40.12312, -12.12312}
+    fmt.Println(m["Bell Labs"])
+}
+```
