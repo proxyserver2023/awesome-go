@@ -132,3 +132,16 @@ if s == nil {
     fmt.Println("nil!")
 }
 ```
+
+* Creating a slice with make
+the `make` function allocates a zeroed array and returns a slice that refers to the array.
+
+``` go
+a := make([]int, 5) // len(a) = 5
+```
+to specify a capacity, pass a third arg
+``` go
+b := make([]int, 0, 5) // len(b) = 0; cap(b) = 5
+b = b[:cap(b)]         // len(b) = 5; cap(b) = 5
+b = b[1:]              // len(b) = 4; cap(b) = 4
+```
