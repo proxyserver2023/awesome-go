@@ -155,3 +155,41 @@ board := [][]string{
     []string{"_", "_", "_"},
 }
 ```
+
+* Appending to a slice
+
+``` go
+var s, t []int
+t = []int{4,5,6}
+s = append(s, 1)
+s = append(s, 2)
+s = append(s, 3)
+s = append(s, t...)
+fmt.Println(s) => [1,2,3,4,5,6]
+```
+
+* Exercise: Slices
+
+``` go
+package main
+
+import "golang.org/x/tour/pic"
+
+func Pic(dx, dy int) [][]uint8 {
+	s := make([][]uint8, 0)
+	for i := 0; i < dy; i++ {
+		t := make([]uint8, 0)
+		for j := 0; j < dx; j++ {
+			n := ((i*j + i^j) + (i*j + i^j))/2
+			t = append(t, uint8(n))
+		}
+		s = append(s, t)
+	}
+	return s
+}
+
+func main() {
+	pic.Show(Pic)
+}
+
+```
