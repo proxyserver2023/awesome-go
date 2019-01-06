@@ -206,3 +206,14 @@ func main() {
     fmt.Println(m["Bell Labs"])
 }
 ```
+
+* Map literals
+
+``` go
+type Vertex struct {Lat, Long float64}
+
+var m = map[string]Vertex{
+    "Bell Labs": Vertex{40.6833, -74.39976},
+    "Google": Vertex{37.123, -12.12},
+}
+```
