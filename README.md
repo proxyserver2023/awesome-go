@@ -217,3 +217,13 @@ var m = map[string]Vertex{
     "Google": Vertex{37.123, -12.12},
 }
 ```
+
+* Mutating Maps
+
+``` go
+m := make(map[string]interface{})
+m["alamin"] = "Mahamud"
+name = m["alamin"]
+delete(m, "alamin")
+element, ok := m["alamin"]
+```
