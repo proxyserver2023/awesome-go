@@ -441,3 +441,64 @@ func describe(i interface{}) {
 */
 
 ```
+
+* Type assertions
+  - `t := i.(T)`
+  - a type assertion provides access to an interface value's underlying concrete value.
+  - `i` holds the concrete type `T` and assigns the underlying `T` value to the variable `t`.
+  - if `i` does not hold `T`, the statement will trigger a `panic`.
+``` go
+var i interface{} = "Hello"
+
+s := i.(string)
+fmt.Println(s) // ---> hello
+
+s, ok :=  i.(string)
+fmt.Println(s, ok) // ---> hello, true
+
+f, ok := i.(float64)
+fmt.Println(f, ok) // ---> 0, false & panic
+
+```
+* Type Switches
+
+``` go
+switch v := i.(type){
+    case T:
+    // here v has type T
+    case S:
+    // here v has type S
+    default:
+    // no match; here v has the same type as i
+}
+```
+
+``` go
+func do(i interface{}) {
+    switch v := i.(type) {
+    case int:
+            fmt.Printf("Twice %v is %v\n", v, v*2)
+    case string:
+            fmt.Printf("%q is %v bytes long\n", v, len(v))
+    default:
+            fmt.Printf("I don't know about type %T!\n", v)
+    }
+}
+
+func main() {
+    do(21)
+    do("hello")
+    do(true)
+}
+
+/*
+
+Outputs
+-------
+
+Twice 21 is 42
+"hello" is 5 bytes long
+I don't know about type bool!
+
+*/
+```
