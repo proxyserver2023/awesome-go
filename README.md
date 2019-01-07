@@ -373,7 +373,8 @@ func main() {
 }
 
 /*
-
+Outputs
+-----------
 (<nil>, *main.T)
 <nil>
 (&{hello}, *main.T)
@@ -402,7 +403,8 @@ func describe(i I) {
 }
 
 /*
-
+Outputs
+---------------
 (<nil>, <nil>)
 panic: runtime error: invalid memory address or nil pointer dereference
 
@@ -429,5 +431,13 @@ func main() {
 func describe(i interface{}) {
 	fmt.Printf("(%v, %T)\n", i, i)
 }
+
+/*
+    Outputs
+    --------
+    (<nil>, <nil>)
+    (42, int)
+    ("hello", string)
+*/
 
 ```
