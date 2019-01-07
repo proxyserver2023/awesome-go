@@ -309,3 +309,76 @@ func main() {
     }
 }
 ```
+* Choosing a value or pointer receiver
+  - if you use pointer receiver data is refernced, not copied so you can modify it and don't need to use storage
+``` go
+type Vertex struct{
+    X, Y float64
+}
+
+func (v *Vertex) Scale(f float64) {
+    v.X = v.X * f
+    v.Y = v.Y * f
+}
+
+func (v *Vertex) Abs() float64 {
+    return math.Sqrt(v.X*v.X + v.Y*v.Y)
+}
+
+```
+* Interface values
+  - `(value, type)`
+  - an interface value holds a value of a specific underlying concrete type.
+  - calling a method on an interface value executes the method of the same name on its underlying type.
+
+``` go
+type I interface{
+    M()
+}
+
+type T struct{
+    S string
+}
+
+func (t *T) M() {fmt.Println(t.S)}
+
+type F float64
+func (f *F) M() {fmt.Println(f)}
+
+```
+* Interface values with nil underlying values
+  - If the concrete value inside the interface itself is nil, the method will be called with a nil receiver.
+
+``` go
+type I interface{M()}
+type T struct{S string}
+
+func (t *T) M() {
+    if t == nil {
+            fmt.Println("<nil>")
+            return
+    }
+    fmt.Println(t.S)
+}
+
+func describe(i I){
+    fmt.Printf("(%v, %T)", i, i)
+}
+
+func main() {
+    var i I
+    var t *T
+    i = t; describe(i); i.M()
+    i = &T{"Hello"}; describe(i); i.M()
+}
+
+/*
+
+(<nil>, *main.T)
+<nil>
+(&{hello}, *main.T)
+hello
+
+*/
+
+```
