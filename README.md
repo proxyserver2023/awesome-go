@@ -928,6 +928,7 @@ goroutine 1 [chan send]:
   - only the sender should close a channel, never the receiver. Sending on a closed channel will cause a panic.
   - channels are not like files. you don't need to close them.
   - closing is necessary when the receiver must be told there are no more values coming, such as to terminate a `range` loop.
+  - Note: you can send as many data into buffered channels; there are no problem doing that. But as soon as you try to receive more data than in the channel it throws `fatal error: all goroutines are asleep - deadlock!`.
 
 ``` go
 func fibonacci(n int, c chan int) {
@@ -942,6 +943,8 @@ func fibonacci(n int, c chan int) {
 func main(){
     c := make(chan int, 100)
     go fibonacci(cap(c), c)
+    for i := range c {
+            fmt.Println(i)
+    }
 }
 ```
-    - Note: you can send as many data into buffered channels; there are no problem doing that. But as soon as you try to receive more data than in the channel it throws `fatal error: all goroutines are asleep - deadlock!`.
