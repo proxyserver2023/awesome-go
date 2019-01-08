@@ -918,3 +918,30 @@ fatal error: all goroutines are asleep - deadlock!
 goroutine 1 [chan send]:
 */
 ```
+
+* Range and close
+  - A sender can `close` a channel to indicate that no more values will be sent.
+  - Receivers can test whether a channel has been closed by assigning a second parameter to the receive expression: after
+  - `v, ok := <-ch`
+  - `ok` is false if there are no more values to receive and the channel is `closed`.
+  - the loop for `i := range c` receives values from the channel repeatedly until it is closed.
+  - only the sender should close a channel, never the receiver. Sending on a closed channel will cause a panic.
+  - channels are not like files. you don't need to close them.
+  - closing is necessary when the receiver must be told there are no more values coming, such as to terminate a `range` loop.
+
+``` go
+func fibonacci(n int, c chan int) {
+    x, y := 0, 1
+    for i := 0; i < n; i++ {
+            c <- x
+            x, y = y, x+y
+    }
+    close(c)
+}
+
+func main(){
+    c := make(chan int, 100)
+    go fibonacci(cap(c), c)
+}
+```
+    - Note: you can send as many data into buffered channels; there are no problem doing that. But as soon as you try to receive more data than in the channel it throws `fatal error: all goroutines are asleep - deadlock!`.
