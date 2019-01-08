@@ -823,3 +823,23 @@ func main() {
 }
 
 ```
+
+* Goroutines
+  - lightweight thread managed by go Runtime.
+  - `go f(x, y, z)`
+  - the evaluation happens on the current goroutine and the execution of f happens in the new goroutines
+  - goroutines run in the same address space, access to shared memory must be synchorized.
+
+``` go
+func say(s string) {
+    for i := 0; i < 5; i++ {
+            time.Sleep(100 * time.Millisecond)
+            fmt.Println(s)
+    }
+}
+
+func main() {
+    go say("world")
+    say("hello")
+}
+```
