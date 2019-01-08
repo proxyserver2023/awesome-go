@@ -713,3 +713,54 @@ func Validate(r io.Reader) {
 fmt.Println("OK!")
 
 ```
+* Exercise Custom Reader
+
+``` go
+package main
+
+import (
+	"io"
+	"os"
+	"strings"
+)
+
+type rot13Reader struct {
+	r io.Reader
+}
+
+func rot13Sub(l *byte) {
+	// check small character
+	if *l >= 97 && *l <= 122 {
+		if *l + 13 > 122 {
+			p := 122 - *l
+			*l = 97 + p
+		} else {
+			*l = *l + 13
+		}
+
+	} else if *l >= 65 && *l <= 90 {
+		if *l + 13 > 90 {
+			p := 90 - *l
+			*l = 65 + p
+		} else {
+			*l = *l + 13
+		}
+	}
+
+}
+
+func (r13 rot13Reader) Read(b []byte) (int, error) {
+	n, err := r13.r.Read(b)
+	for i, _ := range b[:n] {
+		rot13Sub(&b[i])
+	}
+	return n, err
+}
+
+func main() {
+	s := strings.NewReader("Lbh penpxrq gur pbqr!")
+	r := rot13Reader{s}
+	io.Copy(os.Stdout, &r)
+}
+
+```
