@@ -874,3 +874,47 @@ func main(){
     fmt.Println(x, y, x+y)
 }
 ```
+
+* Buffered Channels
+  - channels can be buffered.
+  - `ch := make(chan int, 100)`
+  - sends to a buffered channel block only when the buffer is full.
+  - Receives block when the buffer is empty.
+
+``` go
+func main() {
+    ch := make(chan int, 2)
+    ch <- 1
+    ch <- 2
+    fmt.Println(<-ch)
+    fmt.Println(<-ch)
+}
+
+// Outputs
+// -------
+// 1
+// 2
+
+```
+
+``` go
+// overfilling buffer throws fatal error
+func main(){
+    ch := make(chan int, 2)
+    ch <- 1
+    ch <- 2
+    ch <- 3
+    ch <- 4
+
+    fmt.Println(<-ch)
+    fmt.Println(<-ch)
+}
+
+/*
+Outputs
+-------
+fatal error: all goroutines are asleep - deadlock!
+
+goroutine 1 [chan send]:
+*/
+```
