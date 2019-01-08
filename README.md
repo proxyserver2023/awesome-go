@@ -660,3 +660,56 @@ n = 0 err = EOF b = [101 97 100 101 114 33 32 82]
 b[:n] = ""
 */
 ```
+
+* Exercise Reader
+
+``` go
+package main
+
+import (
+    "fmt"
+    "io"
+    "os"
+)
+
+type MyReader struct{}
+
+func (m MyReader) Read(b []byte) (int, error) {
+	b[0] = 'A'
+	return 1, nil
+}
+
+func main() {
+	Validate(MyReader{})
+}
+
+func Validate(r io.Reader) {
+    b :=  make([]byte, 1024, 2048)
+    i, o := 0, 0
+
+    for ; i < 1<<20 && o < 1<<20; i++ {
+            n, err := r.Read(b)
+
+            for i, v := range b[:n] {
+                    if v != 'A' {
+                            fmt.Fprintf(os.Stderr, "got byte %x at offset %v, want 'A'\n", v, o+i)
+                            return
+                    }
+            }
+
+            o += n
+            if err != nil {
+                    fmt.Fprintf(os.Stderr, "read error: %v\n", err)
+                    return
+            }
+
+    }
+
+    if o == 0 {
+            fmt.Fprintf(os.Stderr, "read zero bytes after %d Read Calls\n", i)
+    }
+    return
+}
+fmt.Println("OK!")
+
+```
