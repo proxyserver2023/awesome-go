@@ -553,3 +553,71 @@ googleDNS: 8.8.8.8
 */
 
 ```
+
+* Errors
+
+``` go
+type error interface {
+    Error() string
+}
+```
+
+``` go
+type MyError struct {
+    When time.Time
+    What string
+}
+
+func(e *MyError) Error() string{
+    return fmt.Sprintf("at %v, %s", e.When, e.What)
+}
+
+func run() error {
+	return &MyError{
+		time.Now(),
+		"it didn't work",
+	}
+}
+
+func main() {
+	if err := run(); err != nil {
+		fmt.Println(err)
+	}
+}
+
+/* Outputs
+--------------
+at 2009-11-10 23:00:00 +0000 UTC m=+0.000000001, it didn't work
+*/
+```
+
+* Exercise errors
+
+``` go
+package main
+
+import (
+	"fmt"
+)
+
+
+type ErrNegativeSqrt float64
+
+func (e ErrNegativeSqrt) Error() string {
+	return fmt.Sprintf("cannot Sqrt negative number: %v", float64(e))
+}
+
+func Sqrt(x float64) (float64, error) {
+	if x < 0 {
+		e := ErrNegativeSqrt(x)
+		return 0, e
+	}
+	return 0, nil
+}
+
+func main() {
+	fmt.Println(Sqrt(2))
+	fmt.Println(Sqrt(-2))
+}
+
+```
