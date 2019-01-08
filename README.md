@@ -948,3 +948,36 @@ func main(){
     }
 }
 ```
+
+* Select
+  - wait on multiple communication operations
+  - `select` blocks until one of its cases can run, then it executes that case. it chooses one at random if multiple are ready.
+
+``` go
+func main(){
+    c := make(chan int)
+    q := make(chan int)
+
+    go func() {
+            for i := 0; i < 10; i++ {
+                    fmt.Println(<-c)
+            }
+            quit <- 0
+    }()
+
+    fibonacci(c, q)
+}
+
+func fibonacci(c, q chan int) {
+    x, y := 0, 1
+    for {
+            select {
+            case c <- x:
+                    x, y = y, x+y
+            case <- quit:
+                    fmt.Println("quit")
+                    return
+            }
+    }
+}
+```
