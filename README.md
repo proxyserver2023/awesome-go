@@ -1078,3 +1078,35 @@ func main() {
 	}
 }
 ```
+
+* sync.Mutex
+
+``` go
+type SafeCounter struct {
+    v map[string]int
+    mutex sync.Mutex
+}
+
+// Value returns the current value of the counter for the given key.
+func (c *SafeCounter) Value(key string) int {
+    c.mutex.Lock()
+    defer c.mutex.Unlock()
+}
+
+// Inc incrementes the counter for the given key
+func (c *SafeCounter) Inc(key string) {
+    c.mutex.Lock()
+    defer c.mutex.Unlock()
+    c.v[key]++
+}
+
+
+func main(){
+    c := SafeCounter{v : make(map[string]int)}
+    for i:=0; i<1000; i++ {
+            go c.Inc("SomeKey")
+    }
+    time.Sleep(time.Second)
+    fmt.Println(c.Value("SomeKey"))
+}
+```
