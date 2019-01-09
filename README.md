@@ -1013,8 +1013,6 @@ type Tree struct{
 ```
 
 ``` go
-
-```
 package main
 
 import (
