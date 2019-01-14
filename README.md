@@ -1,9 +1,10 @@
 # Awesome Golang
 Lots of examples for working with golang.
 
-## TOC
-1. Tour of Golang
-2. Testing
+## Table of Contents
+- Tour of Golang
+- Go by examples
+- Testing
 
 ## Tour of Golang
 * Multiple Results
@@ -1231,4 +1232,21 @@ var fetcher = fakeFetcher{
 	},
 }
 
+```
+## Go By Examples
+
+## Testing
+* Naming convention
+  - to identify Test Routine `func TestXxx(*testing.T)`
+  - file name should end with `_test.go`
+  - the file will be excluded while regular package builds
+  - but included while `go test` command runs
+  - help: `go help test`, `go help testflag`
+
+``` go
+func TestTimeConsuming(t *testing.T) {
+    if testing.Short() {
+            t.Skip("Skipping test in short mode.")
+    }
+}
 ```
