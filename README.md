@@ -1235,6 +1235,20 @@ var fetcher = fakeFetcher{
 ```
 ## Go By Examples
 
+``` go
+package main
+import "fmt"
+func main() {
+    fmt.Println("hello world")
+}
+```
+
+```bash
+go run hello-world.go
+go build hello-world.go
+./hello-world
+```
+
 ## Testing
 * Naming convention
   - to identify Test Routine `func TestXxx(*testing.T)`
