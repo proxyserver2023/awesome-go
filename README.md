@@ -1234,7 +1234,7 @@ var fetcher = fakeFetcher{
 
 ```
 ## Go By Examples
-
+* Hello World
 ``` go
 package main
 import "fmt"
@@ -1242,11 +1242,37 @@ func main() {
     fmt.Println("hello world")
 }
 ```
-
 ```bash
 go run hello-world.go
 go build hello-world.go
 ./hello-world
+```
+* Values
+``` go
+package main
+import "fmt"
+func main() {
+Strings, which can be added together with +.
+
+    fmt.Println("go" + "lang")
+
+    fmt.Println("1+1 =", 1+1)
+    fmt.Println("7.0/3.0 =", 7.0/3.0)
+
+    fmt.Println(true && false)
+    fmt.Println(true || false)
+    fmt.Println(!true)
+}
+```
+``` bash
+$ go run values.go
+golang
+1+1 = 2
+7.0/3.0 = 2.3333333333333335
+false
+true
+false
+
 ```
 
 ## Testing
