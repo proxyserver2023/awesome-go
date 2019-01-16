@@ -1475,4 +1475,22 @@ func main() {
 
 ``` go
 var gracefulStop = make(chan os.Signal)
+signal.Notify(gracefulStop, syscall.SIGTERM)
+signal.Notify(gracefulStop, syscall.SIGINT)
+
+```
+
+* Clean up stuff while graceful Stopping
+  * closing DB Connection
+  * clearing buffered channels
+  * write something to file
+
+``` go
+go func() {
+    sig := <-gracefulStop
+    fmt.Println("Caught Signal: %+v", sig)
+    fmt.Println("Wait for 2 second to finish processing.")
+    time.Sleep(2 * time.Second)
+    os.Exit(0)
+}()
 ```
