@@ -4,6 +4,7 @@ Lots of examples for working with golang.
 ## Table of Contents
 - Tour of Golang
 - Go by examples
+- Standard Library
 - Testing
 - Graceful Shutdown
 
@@ -1424,6 +1425,69 @@ whatAmI := func(i interface{}) {
 whatAmI(true)
 whatAmI(1)
 whatAmI("hey")
+```
+
+
+## Standard Library
+### archive
+#### tar
+
+``` go
+package main
+
+import "fmt"
+
+func main() {
+	var buf bytes.Buffer
+	tw := tar.NewWriter(&buf)
+	var files = []struct{
+		Name, Body string
+	}{
+		{"readme.txt", "this archive contains some text files."},
+		{"adsfsadjkf.txt", "akfdljkaddfjl\nafadsfsad\n\asfdadsfsdafadsf\n"},
+		{"adjfkajklfs.txt", "akdsjfkljfladf"},
+	}
+
+	for _, file := range files {
+		hdr := &tar.Header{
+			Name: file.Name,
+			Mode: 0600,
+			Size: int64(len(file.Body)),
+		}
+
+		if  err := tw.WriteHeader(hdr); err != nil {
+			log.Fatal(err)
+		}
+
+		if _, err := tw.Write([]byte(file.Body)); err != nil {
+			log.Fatal(err)
+		}
+
+	}
+
+	if err := tw.Close(); err != nil {
+		log.Fatal(err)
+	}
+
+	// Open and iterate through the files in the archive
+	tr := tar.NewReader(&buf)
+	for {
+		hdr, err := tr.Next()
+		if err == io.EOF {
+			break
+		}
+
+		if err != nil {
+			log.Fatal(err)
+		}
+
+		fmt.Printf("Contents of %s\n", hdr.Name)
+		if _, err := io.Copy(os.Stdout, tr); err != nil {
+			log.Fatal(err)
+		}
+		fmt.Println()
+	}
+}
 ```
 
 ## Testing
