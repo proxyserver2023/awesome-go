@@ -1542,6 +1542,31 @@ func TestTimeConsuming(t *testing.T) {
 }
 ```
 
+For control over `proxies`, `TLS Configuration`, `keep-alives`, `compression` and other create a Transport:
+
+```go
+tr := &http.Transport{
+	MaxIdleConns: 10,
+	IdleConnTimeout: 30 * time.Second,
+	DisableCompression: true,
+}
+
+client := &http.Client{Transport: tr}
+resp, err := client.Get("https://example.com")
+```
+
+```go
+type myHandler func(ResponseWriter, *http.Request)
+func (fooHandler myHandler) ServeHTTP(w ResponseWriter, r  *http.Request) {
+	fooHandler(w r)
+}
+
+http.Handle("/foo", fooHandler)
+http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request){
+	fmt.Printf(w, "Hello %q", html.EscapeString(r.URL.Path))
+})
+```
+
 ## Graceful Shutdown
 `os.Signal` package is used to access incoming signals from OS.
 
