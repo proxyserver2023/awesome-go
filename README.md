@@ -1489,6 +1489,42 @@ func main() {
 	}
 }
 ```
+### http
+```go
+resp, err := http.Get("http://example.com")
+resp, err := http.Post("http://example.com/upload", "image/jpeg", &buf)
+resp, err := http.PostForm(
+                "http://example.com/form",
+                url.Values{"key": {"Value"}, "id": {"123"}}, 
+             )
+```
+
+
+the client must close the response body when finished with it:
+```go
+resp, err := http.Get("http://example.com")
+if err != nil {
+	// handle error
+}
+
+defer resp.Body.Close()
+body, err := ioutil.ReadAll(resp.Body)
+```
+
+For control over HTTP client Headers, redirect-policy and other settings, create a Client:
+```go
+client := &http.Client{
+	CheckRedirect: redirectPolicyFunc,
+}
+
+resp, err := client.Get("http://example.com")
+
+// create a request for more flexibility
+req, err := http.NewRequest("GET", "http://example.com", nil)
+req.Header.Add("If-None-Match", `W/"wyzzy"`)
+resp, err := client.Do(req)
+```
+
 
 ## Testing
 * Naming convention
