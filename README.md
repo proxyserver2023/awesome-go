@@ -1490,6 +1490,42 @@ func main() {
 	}
 }
 ```
+### http
+```go
+resp, err := http.Get("http://example.com")
+resp, err := http.Post("http://example.com/upload", "image/jpeg", &buf)
+resp, err := http.PostForm(
+                "http://example.com/form",
+                url.Values{"key": {"Value"}, "id": {"123"}}, 
+             )
+```
+
+
+the client must close the response body when finished with it:
+```go
+resp, err := http.Get("http://example.com")
+if err != nil {
+	// handle error
+}
+
+defer resp.Body.Close()
+body, err := ioutil.ReadAll(resp.Body)
+```
+
+For control over HTTP client Headers, redirect-policy and other settings, create a Client:
+```go
+client := &http.Client{
+	CheckRedirect: redirectPolicyFunc,
+}
+
+resp, err := client.Get("http://example.com")
+
+// create a request for more flexibility
+req, err := http.NewRequest("GET", "http://example.com", nil)
+req.Header.Add("If-None-Match", `W/"wyzzy"`)
+resp, err := client.Do(req)
+```
+
 
 ## Testing
 * Naming convention
@@ -1505,6 +1541,31 @@ func TestTimeConsuming(t *testing.T) {
             t.Skip("Skipping test in short mode.")
     }
 }
+```
+
+For control over `proxies`, `TLS Configuration`, `keep-alives`, `compression` and other create a Transport:
+
+```go
+tr := &http.Transport{
+	MaxIdleConns: 10,
+	IdleConnTimeout: 30 * time.Second,
+	DisableCompression: true,
+}
+
+client := &http.Client{Transport: tr}
+resp, err := client.Get("https://example.com")
+```
+
+```go
+type myHandler func(ResponseWriter, *http.Request)
+func (fooHandler myHandler) ServeHTTP(w ResponseWriter, r  *http.Request) {
+	fooHandler(w r)
+}
+
+http.Handle("/foo", fooHandler)
+http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request){
+	fmt.Printf(w, "Hello %q", html.EscapeString(r.URL.Path))
+})
 ```
 
 ## Graceful Shutdown
