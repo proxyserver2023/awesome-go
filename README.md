@@ -8,6 +8,7 @@ Lots of examples for working with golang.
 - Testing
 - JWT Implementation
 - Graceful Shutdown
+- defer *http.Request.Body.Close()
 
 ## Tour of Golang
 * Multiple Results
@@ -1496,7 +1497,7 @@ resp, err := http.Get("http://example.com")
 resp, err := http.Post("http://example.com/upload", "image/jpeg", &buf)
 resp, err := http.PostForm(
                 "http://example.com/form",
-                url.Values{"key": {"Value"}, "id": {"123"}}, 
+                url.Values{"key": {"Value"}, "id": {"123"}},
              )
 ```
 
@@ -1686,4 +1687,12 @@ defer res.Body.Close()
 buf := new(bytes.Buffer)
 io.Copy(buf, res.Body)
 fmt.Println(buf.String())
+```
+
+##  `defer *http.Request.Body.Close()`
+A request body does not need to be closed in the handler. From the http.Request documentation
+
+``` go
+// The Server will close the request body. The ServeHTTP
+// Handler does not need to.
 ```
