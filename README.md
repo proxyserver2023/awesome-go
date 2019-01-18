@@ -6,6 +6,7 @@ Lots of examples for working with golang.
 - Go by examples
 - Standard Library
 - Testing
+- JWT Implementation
 - Graceful Shutdown
 
 ## Tour of Golang
