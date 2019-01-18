@@ -6,9 +6,10 @@ Lots of examples for working with golang.
 - Go by examples
 - Standard Library
 - Testing
-- JWT Implementation
+- ElasticSearch
 - Graceful Shutdown
-- defer *http.Request.Body.Close()
+- JWT
+- Misc
 
 ## Tour of Golang
 * Multiple Results
@@ -1689,7 +1690,9 @@ io.Copy(buf, res.Body)
 fmt.Println(buf.String())
 ```
 
-##  `defer *http.Request.Body.Close()`
+## ElasticSearch
+## Misc
+###  `defer *http.Request.Body.Close()`
 A request body does not need to be closed in the handler. From the http.Request documentation
 
 ``` go
