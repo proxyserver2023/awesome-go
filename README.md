@@ -1,6 +1,10 @@
 # Awesome Golang
 Lots of examples for working with golang.
 
+## How to use this project
+Store examples with necessary instructions to install, so that other people install.
+
+
 ## Table of Contents
 - Tour of Golang
 - Go by examples
