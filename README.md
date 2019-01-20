@@ -1242,6 +1242,7 @@ var fetcher = fakeFetcher{
 }
 
 ```
+
 ## Go By Examples
 * Hello World
 ``` go
@@ -1434,7 +1435,6 @@ whatAmI(1)
 whatAmI("hey")
 ```
 
-
 ## Standard Library
 ### archive
 #### tar
@@ -1531,7 +1531,6 @@ req, err := http.NewRequest("GET", "http://example.com", nil)
 req.Header.Add("If-None-Match", `W/"wyzzy"`)
 resp, err := client.Do(req)
 ```
-
 
 ## Testing
 * Naming convention
@@ -1706,7 +1705,7 @@ io.Copy(buf, res.Body)
 fmt.Println(buf.String())
 ```
 
-## ElasticSearch
+
 ## Misc
 ###  `defer *http.Request.Body.Close()`
 A request body does not need to be closed in the handler. From the http.Request documentation
