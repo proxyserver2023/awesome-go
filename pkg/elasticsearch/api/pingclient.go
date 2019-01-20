@@ -1,6 +1,11 @@
 package main
 
-import "fmt"
+import (
+	"context"
+	"fmt"
+
+	"github.com/olivere/elastic"
+)
 
 func pingClient(client *elastic.Client, ctx context.Context) {
 	info, code, err := client.Ping("http://127.0.0.1:9200").Do(ctx)
