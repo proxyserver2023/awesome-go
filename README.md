@@ -6,14 +6,14 @@ Store examples with necessary instructions to install, so that other people inst
 
 
 ## Table of Contents
-- Tour of Golang
-- Go by examples
-- Standard Library
-- Testing
-- ElasticSearch
-- Graceful Shutdown
-- JWT
-- Misc
+- [Tour of Golang](#tour-of-golang)
+- [Go by examples](#go-by-examples)
+- [Standard Library](#standard-library)
+- [Testing](#testing)
+- [ElasticSearch](#elasticsearch)
+- [Graceful Shutdown](#graceful-shutdown)
+- [JWT](#jwt)
+- [Misc](#misc)
 
 ## Tour of Golang
 * Multiple Results
