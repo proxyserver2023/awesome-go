@@ -2,7 +2,7 @@
 Lots of examples for working with golang.
 
 ## How to use this project
-Store examples with necessary instructions to install, so that other people install.
+Store examples with necessary instructions to install, so that other people can built tools on your work.
 
 
 ## Table of Contents
