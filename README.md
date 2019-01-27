@@ -6,14 +6,16 @@ Store examples with necessary instructions to install, so that other people can 
 
 
 ## Table of Contents
+
 - [Tour of Golang](#tour-of-golang)
 - [Go by examples](#go-by-examples)
 - [Standard Library](#standard-library)
+- [RabbitMQ](#rabbitmq)
 - [Authentication and OAuth](#authentication-and-oauth)
+- [JWT](#jwt)
 - [Testing](#testing)
 - [ElasticSearch](#elasticsearch)
 - [Graceful Shutdown](#graceful-shutdown)
-- [JWT](#jwt)
 - [Misc](#misc)
 
 ## Tour of Golang
@@ -1533,6 +1535,21 @@ req.Header.Add("If-None-Match", `W/"wyzzy"`)
 resp, err := client.Do(req)
 ```
 
+
+## RabbitMQ
+
+One of the important things to note about RabbitMQ is that it stores data based on what it calls the "Node Name", which defaults to the hostname.
+
+What this means for usage in Docker is that we should specify -h/--hostname explicitly for each daemon so that we don't get a random hostname and can keep track of our data:
+
+``` shell
+docker run -d --hostname=my-rabbit --name=some-rabbit rabbitmq
+```
+
+``` shell
+# docker logs <container_name>
+docker logs some-rabbit
+```
 
 ## Authentication and OAuth
 
