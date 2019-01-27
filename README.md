@@ -9,6 +9,7 @@ Store examples with necessary instructions to install, so that other people can 
 - [Tour of Golang](#tour-of-golang)
 - [Go by examples](#go-by-examples)
 - [Standard Library](#standard-library)
+- [Authentication and OAuth](#authentication-and-oauth)
 - [Testing](#testing)
 - [ElasticSearch](#elasticsearch)
 - [Graceful Shutdown](#graceful-shutdown)
@@ -1531,6 +1532,11 @@ req, err := http.NewRequest("GET", "http://example.com", nil)
 req.Header.Add("If-None-Match", `W/"wyzzy"`)
 resp, err := client.Do(req)
 ```
+
+
+## Authentication and OAuth
+
+### [authboss](https://github.com/volatiletech/authboss)
 
 ## Testing
 * Naming convention
