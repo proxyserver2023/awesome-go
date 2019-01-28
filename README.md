@@ -1,4 +1,6 @@
 # Awesome Golang
+[![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
+
 Lots of examples for working with golang.
 
 ## How to use this project
