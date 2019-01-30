@@ -11,6 +11,7 @@ Store examples with necessary instructions to install, so that other people can 
 
 - [Tour of Golang](#tour-of-golang)
 - [Go by examples](#go-by-examples)
+- [Go Modules](#go-modules)
 - [Standard Library](#standard-library)
 - [RabbitMQ](#rabbitmq)
 - [Authentication and OAuth](#authentication-and-oauth)
@@ -1439,6 +1440,68 @@ whatAmI(true)
 whatAmI(1)
 whatAmI("hey")
 ```
+
+
+
+## Go Modules
+### Requirements
+* `go - 1.11+`
+
+### Create a Hello World Application using go mod
+```
+mkdir -p /tmp/hello
+go mod init github.com/alamin-mahamud/go-hello
+touch hello.go
+```
+
+hello.go
+```
+package main
+
+import (
+	"fmt"
+	"rsc.io/quote"
+)
+
+func main() {
+	fmt.Println(quote.Hello())
+}
+```
+
+```shell
+$ go build
+$ ./hello
+Hello, world
+$ go list -m all
+$ LANG=fr ./hello
+Bonjour le monde
+$ go list -m -u all
+$ go get -u golang.org/x/text
+```
+
+* test all packages with standard library
+``` shell
+$ go test -short all
+```
+
+* test a certain package
+```shell
+go test rsc.io/quote/...
+```
+
+* upgrade all modules
+```shell
+go get -u
+```
+
+* downgrading deps
+```shell
+$ go list -m -versions rsc.io/sampler
+rsc.io/sampler v1.0.0 v1.2.0 v1.2.1 v1.3.0 v1.3.1 v1.99.99
+$ go get rsc.io/sampler@v1.2.0
+$ go list -m all
+```
+
 
 ## Standard Library
 ### archive
