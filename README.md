@@ -1502,6 +1502,39 @@ $ go get rsc.io/sampler@v1.2.0
 $ go list -m all
 ```
 
+* using a fork package
+```shell
+$ git clone <fork-repo-url> <location>
+$ fork_repo_location=location
+$ cd $fork_repo_location
+$ versionNumber=$(cd /your-package-location && go list -m -f "{{.Version}}" $package_url)
+$ git checkout -b new-branch-name $versionNumber
+```
+
+```shell
+# in your own package
+$ go mod edit -replace "pacakge_url=$fork_repo_location"
+```
+
+* using a updated remote package
+```shell
+# cd into forked package
+git remote set-url origin <your_url>
+git add .
+git commit -m "Some Changes"
+git push origin <branch_name>
+
+tagName=v1.2.3-rc1
+git tag $tagName
+git push origin $tagName
+
+# cd into your project
+originalPackageUrl="rsc.io/quote"
+updatePackageUrl="github.com/golab-bd/quote"
+go mod edit -replace "$originPackageUrl=$updatePackageUrl@$tagName"
+go list -m all
+go build
+```
 
 ## Standard Library
 ### archive
