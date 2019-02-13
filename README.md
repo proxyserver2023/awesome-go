@@ -1,11 +1,12 @@
 # Awesome Golang
+
 [![Awesome](https://awesome.re/badge-flat2.svg)](https://awesome.re)
 
 Lots of examples for working with golang.
 
 ## How to use this project
-Store examples with necessary instructions to install, so that other people can built tools on your work.
 
+Store examples with necessary instructions to install, so that other people can built tools on your work.
 
 ## Table of Contents
 
@@ -19,10 +20,12 @@ Store examples with necessary instructions to install, so that other people can 
 - [Testing](#testing)
 - [ElasticSearch](#elasticsearch)
 - [Graceful Shutdown](#graceful-shutdown)
+- [Go Micro](#go-micro)
 - [Misc](#misc)
 
 ## Tour of Golang
-* Multiple Results
+
+- Multiple Results
 
 ``` go
 func swap(x, y string) (string, string) {
@@ -34,17 +37,18 @@ func main() {
     fmt.Println(a, b)
 }
 ```
-* Named Return Values
+
+- Named Return Values
 
 ``` go
 func split(sum int) (x, y int) {
-    x = sum * 4 / 9
+    x = sum - 4 / 9
     y = sum - x
     return
 }
 ```
 
-* Stacking Defers
+- Stacking Defers
 
 ``` go
 func main() {
@@ -58,14 +62,14 @@ func main() {
 }
 ```
 
-* Pointers
+- Pointers
 
 ``` go
 primes := [6]int{1,2,3,4,5,6}
 var s []int = primes[1:4]
 ```
 
-* Slices are like references to arrays
+- Slices are like references to arrays
 
 ``` go
 names := [4]string{
@@ -90,7 +94,7 @@ Outputs
 [John XXX George Ringo]
 */
 ```
-* Slice Literals
+- Slice Literals
 
 ``` go
 q := []int{2, 3, 5, 7, 11, 13}
@@ -111,7 +115,7 @@ s := []struct{
 ```
 First an array is created then builds a slice that references it.
 
-* Slice Length and capacity
+- Slice Length and capacity
   + length: number of element it contains
   + capacity: number of elements in the underlying array, counting fromt the first element in the slice.
   + we can extend slice if it has enough capacity. extending beyond capacity throws `panic: runtime error: slice bounds out of range`
@@ -139,7 +143,7 @@ s = s[2:] // droping its first two values
 // Println(s) => []
 ```
 
-* Nil value of slice
+- Nil value of slice
   - the zero value of slice is nil
   - nil slice has a length and capacity of 0 and has `no underlying array`.
 
@@ -154,7 +158,7 @@ if s == nil {
 }
 ```
 
-* Creating a slice with make
+- Creating a slice with make
 the `make` function allocates a zeroed array and returns a slice that refers to the array.
 
 ``` go
@@ -167,7 +171,7 @@ b = b[:cap(b)]         // len(b) = 5; cap(b) = 5
 b = b[1:]              // len(b) = 4; cap(b) = 4
 ```
 
-* Slices of slices
+- Slices of slices
 
 ``` go
 board := [][]string{
@@ -177,7 +181,7 @@ board := [][]string{
 }
 ```
 
-* Appending to a slice
+- Appending to a slice
 
 ``` go
 var s, t []int
@@ -189,7 +193,7 @@ s = append(s, t...)
 fmt.Println(s) => [1,2,3,4,5,6]
 ```
 
-* Exercise: Slices
+- Exercise: Slices
 
 ``` go
 package main
@@ -215,7 +219,7 @@ func main() {
 
 ```
 
-* Maps
+- Maps
 
 ``` go
 type Vertex struct{Lat, Long float64}
@@ -228,7 +232,7 @@ func main() {
 }
 ```
 
-* Map literals
+- Map literals
 
 ``` go
 type Vertex struct {Lat, Long float64}
@@ -239,7 +243,7 @@ var m = map[string]Vertex{
 }
 ```
 
-* Mutating Maps
+- Mutating Maps
 
 ``` go
 m := make(map[string]interface{})
@@ -249,7 +253,7 @@ delete(m, "alamin")
 element, ok := m["alamin"]
 ```
 
-* Exercise Maps
+- Exercise Maps
 
 ``` go
 func WordCount(s string) map[string]int {
@@ -261,7 +265,7 @@ func WordCount(s string) map[string]int {
 	return m
 }
 ```
-* Functions as values
+- Functions as values
 
 ``` go
 func compute(fn func(float64, float64) float64) float64 {
@@ -278,7 +282,7 @@ fun main() {
 }
 ```
 
-* Function closures
+- Function closures
 ``` go
 func adder() func (int) int {
     sum := 0
@@ -299,7 +303,7 @@ func main() {
 }
 ```
 
-* Exercise Fibonacci Series
+- Exercise Fibonacci Series
 
 ``` go
 func fib() func() int {
@@ -330,7 +334,7 @@ func main() {
     }
 }
 ```
-* Choosing a value or pointer receiver
+- Choosing a value or pointer receiver
   - if you use pointer receiver data is refernced, not copied so you can modify it and don't need to use storage
 ``` go
 type Vertex struct{
@@ -338,8 +342,8 @@ type Vertex struct{
 }
 
 func (v *Vertex) Scale(f float64) {
-    v.X = v.X * f
-    v.Y = v.Y * f
+    v.X = v.X - f
+    v.Y = v.Y - f
 }
 
 func (v *Vertex) Abs() float64 {
@@ -347,7 +351,7 @@ func (v *Vertex) Abs() float64 {
 }
 
 ```
-* Interface values
+- Interface values
   - `(value, type)`
   - an interface value holds a value of a specific underlying concrete type.
   - calling a method on an interface value executes the method of the same name on its underlying type.
@@ -367,7 +371,7 @@ type F float64
 func (f *F) M() {fmt.Println(f)}
 
 ```
-* Interface values with nil underlying values
+- Interface values with nil underlying values
   - If the concrete value inside the interface itself is nil, the method will be called with a nil receiver.
 
 ``` go
@@ -404,7 +408,7 @@ hello
 */
 
 ```
-* Nil interface values
+- Nil interface values
   - A nil interface value holds neither value nor concrete type.
   - Calling a method on a nil interface is a run-time error because there is no type inside the interface tuple to indicate which concrete method to call.
 
@@ -432,7 +436,7 @@ panic: runtime error: invalid memory address or nil pointer dereference
 */
 
 ```
-* The empty interface
+- The empty interface
   - The interface type that specifies zero methods is known as the empty interface
   - `interface{}`
   - An empty interface may hold values of any type. (Every type implements at least zero methods.)
@@ -463,7 +467,7 @@ func describe(i interface{}) {
 
 ```
 
-* Type assertions
+- Type assertions
   - `t := i.(T)`
   - a type assertion provides access to an interface value's underlying concrete value.
   - `i` holds the concrete type `T` and assigns the underlying `T` value to the variable `t`.
@@ -481,7 +485,7 @@ f, ok := i.(float64)
 fmt.Println(f, ok) // ---> 0, false & panic
 
 ```
-* Type Switches
+- Type Switches
 
 ``` go
 switch v := i.(type){
@@ -523,7 +527,7 @@ I don't know about type bool!
 
 */
 ```
-* Stringers
+- Stringers
 
 ``` go
 type Stringer interface{
@@ -540,7 +544,7 @@ func (p Person) String() string{
 }
 ```
 
-* Exercise Stringers
+- Exercise Stringers
 
 ``` go
 package main
@@ -575,7 +579,7 @@ googleDNS: 8.8.8.8
 
 ```
 
-* Errors
+- Errors
 
 ``` go
 type error interface {
@@ -606,13 +610,13 @@ func main() {
 	}
 }
 
-/* Outputs
+/- Outputs
 --------------
 at 2009-11-10 23:00:00 +0000 UTC m=+0.000000001, it didn't work
 */
 ```
 
-* Exercise errors
+- Exercise errors
 
 ``` go
 package main
@@ -642,7 +646,7 @@ func main() {
 }
 
 ```
-* Reader
+- Reader
 
 ``` go
 package main
@@ -682,7 +686,7 @@ b[:n] = ""
 */
 ```
 
-* Exercise Reader
+- Exercise Reader
 
 ``` go
 package main
@@ -734,7 +738,7 @@ func Validate(r io.Reader) {
 fmt.Println("OK!")
 
 ```
-* Exercise Custom Reader
+- Exercise Custom Reader
 
 ``` go
 package main
@@ -785,7 +789,7 @@ func main() {
 }
 
 ```
-* Images
+- Images
 
 ``` go
 import (
@@ -801,7 +805,7 @@ func main() {
 
 ```
 
-* Exercise Images
+- Exercise Images
 
 ``` go
 package main
@@ -845,7 +849,7 @@ func main() {
 
 ```
 
-* Goroutines
+- Goroutines
   - lightweight thread managed by go Runtime.
   - `go f(x, y, z)`
   - the evaluation happens on the current goroutine and the execution of f happens in the new goroutines
@@ -854,7 +858,7 @@ func main() {
 ``` go
 func say(s string) {
     for i := 0; i < 5; i++ {
-            time.Sleep(100 * time.Millisecond)
+            time.Sleep(100 - time.Millisecond)
             fmt.Println(s)
     }
 }
@@ -865,7 +869,7 @@ func main() {
 }
 ```
 
-* Channel
+- Channel
   - send and receive values with channel operator.
   - `ch <- v` send v to channel
   - `v := <- ch` receive from ch, and assign value to v.
@@ -896,7 +900,7 @@ func main(){
 }
 ```
 
-* Buffered Channels
+- Buffered Channels
   - channels can be buffered.
   - `ch := make(chan int, 100)`
   - sends to a buffered channel block only when the buffer is full.
@@ -940,7 +944,7 @@ goroutine 1 [chan send]:
 */
 ```
 
-* Range and close
+- Range and close
   - A sender can `close` a channel to indicate that no more values will be sent.
   - Receivers can test whether a channel has been closed by assigning a second parameter to the receive expression: after
   - `v, ok := <-ch`
@@ -970,7 +974,7 @@ func main(){
 }
 ```
 
-* Select
+- Select
   - wait on multiple communication operations
   - `select` blocks until one of its cases can run, then it executes that case. it chooses one at random if multiple are ready.
 
@@ -1002,12 +1006,12 @@ func fibonacci(c, q chan int) {
     }
 }
 ```
-* Default Selection
+- Default Selection
 
 ``` go
 func main(){
-    tick := time.Tick(100 * time.Millisecond)
-    boom := time.After(500 * time.Millisecond)
+    tick := time.Tick(100 - time.Millisecond)
+    boom := time.After(500 - time.Millisecond)
 
     for {
             select {
@@ -1018,13 +1022,13 @@ func main(){
                             return
                     default:
                             fmt.Println(" . ")
-                            time.Sleep(50 * time.Millisecond)
+                            time.Sleep(50 - time.Millisecond)
             }
     }
 }
 ```
 
-* Exercise - Equivalent Binary Trees
+- Exercise - Equivalent Binary Trees
 ``` go
 type Tree struct{
     Left *Tree
@@ -1098,7 +1102,7 @@ func main() {
 }
 ```
 
-* sync.Mutex
+- sync.Mutex
 
 ``` go
 type SafeCounter struct {
@@ -1129,7 +1133,7 @@ func main(){
     fmt.Println(c.Value("SomeKey"))
 }
 ```
-* Web Crawler
+- Web Crawler
 
 ``` go
 package main
@@ -1250,7 +1254,9 @@ var fetcher = fakeFetcher{
 ```
 
 ## Go By Examples
-* Hello World
+
+- Hello World
+
 ``` go
 package main
 import "fmt"
@@ -1258,17 +1264,20 @@ func main() {
     fmt.Println("hello world")
 }
 ```
+
 ```bash
 go run hello-world.go
 go build hello-world.go
 ./hello-world
 ```
-* Values
+
+- Values
+
 ``` go
 package main
 import "fmt"
 func main() {
-Strings, which can be added together with +.
+    // Strings, which can be added together with +
 
     fmt.Println("go" + "lang")
 
@@ -1280,6 +1289,7 @@ Strings, which can be added together with +.
     fmt.Println(!true)
 }
 ```
+
 ``` bash
 $ go run values.go
 golang
@@ -1288,9 +1298,9 @@ golang
 false
 true
 false
-
 ```
-* Go Variables
+
+- Go Variables
 
 ``` go
 var a = "initial"
@@ -1317,7 +1327,8 @@ true
 0
 short
 ```
-* Constants
+
+- Constants
   - A numeric constant has no type until it’s given one, such as by an explicit cast.
   - A number can be given a type by using it in a context that requires one, such as a variable assignment or function call. For example, here math.Sin expects a float64.
 
@@ -1339,7 +1350,8 @@ constant
 -0.28470407323754404
 ```
 
-* For
+- For
+
 ``` go
 i := 1
 // Single condition
@@ -1369,7 +1381,8 @@ for n := 0; n <= 5; n++ {
     fmt.Println(n)
 }
 ```
-* If else
+
+- If else
 
 ``` go
 if 7%2 == 0 {
@@ -1395,9 +1408,9 @@ if num := 9; num < 0 {
 }
 ```
 
-* No ternary operator in golang
+- No ternary operator in golang
 
-* Switch
+- Switch
 
 ``` go
 i := 2
@@ -1441,21 +1454,23 @@ whatAmI(1)
 whatAmI("hey")
 ```
 
-
-
 ## Go Modules
+
 ### Requirements
-* `go - 1.11+`
+
+- `go - 1.11+`
 
 ### Create a Hello World Application using go mod
-```
+
+```bash
 mkdir -p /tmp/hello
 go mod init github.com/alamin-mahamud/go-hello
 touch hello.go
 ```
 
 hello.go
-```
+
+```go
 package main
 
 import (
@@ -1468,7 +1483,7 @@ func main() {
 }
 ```
 
-```shell
+```bash
 $ go build
 $ ./hello
 Hello, world
@@ -1479,31 +1494,36 @@ $ go list -m -u all
 $ go get -u golang.org/x/text
 ```
 
-* test all packages with standard library
-``` shell
+- test all packages with standard library
+
+```bash
 $ go test -short all
 ```
 
-* test a certain package
-```shell
+- test a certain package
+
+```bash
 go test rsc.io/quote/...
 ```
 
-* upgrade all modules
-```shell
+- upgrade all modules
+
+```bash
 go get -u
 ```
 
-* downgrading deps
-```shell
+- downgrading deps
+
+```bash
 $ go list -m -versions rsc.io/sampler
 rsc.io/sampler v1.0.0 v1.2.0 v1.2.1 v1.3.0 v1.3.1 v1.99.99
 $ go get rsc.io/sampler@v1.2.0
 $ go list -m all
 ```
 
-* using a fork package
-```shell
+- using a fork package
+
+```bash
 $ git clone <fork-repo-url> <location>
 $ fork_repo_location=location
 $ cd $fork_repo_location
@@ -1511,13 +1531,14 @@ $ versionNumber=$(cd /your-package-location && go list -m -f "{{.Version}}" $pac
 $ git checkout -b new-branch-name $versionNumber
 ```
 
-```shell
+```bash
 # in your own package
 $ go mod edit -replace "pacakge_url=$fork_repo_location"
 ```
 
-* using a updated remote package
-```shell
+- using a updated remote package
+
+```bash
 # cd into forked package
 git remote set-url origin <your_url>
 git add .
@@ -1537,7 +1558,9 @@ go build
 ```
 
 ## Standard Library
+
 ### archive
+
 #### tar
 
 ``` go
@@ -1597,7 +1620,9 @@ func main() {
 	}
 }
 ```
+
 ### http
+
 ```go
 resp, err := http.Get("http://example.com")
 resp, err := http.Post("http://example.com/upload", "image/jpeg", &buf)
@@ -1607,8 +1632,8 @@ resp, err := http.PostForm(
              )
 ```
 
-
 the client must close the response body when finished with it:
+
 ```go
 resp, err := http.Get("http://example.com")
 if err != nil {
@@ -1620,6 +1645,7 @@ body, err := ioutil.ReadAll(resp.Body)
 ```
 
 For control over HTTP client Headers, redirect-policy and other settings, create a Client:
+
 ```go
 client := &http.Client{
 	CheckRedirect: redirectPolicyFunc,
@@ -1633,18 +1659,17 @@ req.Header.Add("If-None-Match", `W/"wyzzy"`)
 resp, err := client.Do(req)
 ```
 
-
 ## RabbitMQ
 
 One of the important things to note about RabbitMQ is that it stores data based on what it calls the "Node Name", which defaults to the hostname.
 
 What this means for usage in Docker is that we should specify -h/--hostname explicitly for each daemon so that we don't get a random hostname and can keep track of our data:
 
-``` shell
+``` bash
 docker run -d --hostname=my-rabbit --name=some-rabbit rabbitmq
 ```
 
-``` shell
+``` bash
 # docker logs <container_name>
 docker logs some-rabbit
 ```
@@ -1653,111 +1678,6 @@ docker logs some-rabbit
 
 ### [authboss](https://github.com/volatiletech/authboss)
 
-## Testing
-* Naming convention
-  - to identify Test Routine `func TestXxx(*testing.T)`
-  - file name should end with `_test.go`
-  - the file will be excluded while regular package builds
-  - but included while `go test` command runs
-  - help: `go help test`, `go help testflag`
-
-``` go
-func TestTimeConsuming(t *testing.T) {
-    if testing.Short() {
-            t.Skip("Skipping test in short mode.")
-    }
-}
-```
-
-For control over `proxies`, `TLS Configuration`, `keep-alives`, `compression` and other create a Transport:
-
-```go
-tr := &http.Transport{
-	MaxIdleConns: 10,
-	IdleConnTimeout: 30 * time.Second,
-	DisableCompression: true,
-}
-
-client := &http.Client{Transport: tr}
-resp, err := client.Get("https://example.com")
-```
-
-```go
-type myHandler func(ResponseWriter, *http.Request)
-func (fooHandler myHandler) ServeHTTP(w ResponseWriter, r  *http.Request) {
-	fooHandler(w r)
-}
-
-http.Handle("/foo", fooHandler)
-http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request){
-	fmt.Printf(w, "Hello %q", html.EscapeString(r.URL.Path))
-})
-```
-
-```go
-s := &http.Server{
-	Addr:           ":8080",
-	Handler:        myHandler,
-	ReadTimeout:    10 * time.Second,
-	WriteTimeout:   10 * time.Second,
-	MaxHeaderBytes: 1 << 20,
-}
-log.Fatal(s.ListenAndServe())
-```
-
-
-## Graceful Shutdown
-`os.Signal` package is used to access incoming signals from OS.
-
-* SIGHUP - program looses its controlling terminal.
-* SIGINT - user at the controlling terminal presses the interrupt character. (by default - CTRL-C or ^C)
-* SIGQUIT - user at the controlling terminal press quit char - (by default ^\ Control-Backslash)
-
-n general you can cause a program to simply exit by pressing ^C, and you can cause it to exit with a stack dump by pressing ^\.
-
-[Example](https://play.golang.org/p/vepjqCHMT5Q)
-``` go
-package main
-
-import (
-	"fmt"
-	"os"
-	"os/signal"
-)
-
-func main() {
-	c := make(chan os.Signal, 1)
-	signal.Notify(c)
-        s := <- c
-        fmt.Println("Got Signal: ", s)
-	// for i := range c {
-	// 	fmt.Println(i)
-	// }
-}
-```
-
-
-``` go
-var gracefulStop = make(chan os.Signal)
-signal.Notify(gracefulStop, syscall.SIGTERM)
-signal.Notify(gracefulStop, syscall.SIGINT)
-
-```
-
-* Clean up stuff while graceful Stopping
-  * closing DB Connection
-  * clearing buffered channels
-  * write something to file
-
-``` go
-go func() {
-    sig := <-gracefulStop
-    fmt.Println("Caught Signal: %+v", sig)
-    fmt.Println("Wait for 2 second to finish processing.")
-    time.Sleep(2 * time.Second)
-    os.Exit(0)
-}()
-```
 
 ## JWT
 
@@ -1803,7 +1723,7 @@ func main() {
 }
 ```
 
-* Use Token
+- Use Token
 
 ``` go
 token, err := createToken("string-to-generate-token")
@@ -1826,17 +1746,132 @@ io.Copy(buf, res.Body)
 fmt.Println(buf.String())
 ```
 
+## Testing
+
+- Naming convention
+  - to identify Test Routine `func TestXxx(*testing.T)`
+  - file name should end with `_test.go`
+  - the file will be excluded while regular package builds
+  - but included while `go test` command runs
+  - help: `go help test`, `go help testflag`
+
+``` go
+func TestTimeConsuming(t *testing.T) {
+    if testing.Short() {
+            t.Skip("Skipping test in short mode.")
+    }
+}
+```
+
+For control over `proxies`, `TLS Configuration`, `keep-alives`, `compression` and other create a Transport:
+
+```go
+tr := &http.Transport{
+	MaxIdleConns: 10,
+	IdleConnTimeout: 30 - time.Second,
+	DisableCompression: true,
+}
+
+client := &http.Client{Transport: tr}
+resp, err := client.Get("https://example.com")
+```
+
+```go
+type myHandler func(ResponseWriter, *http.Request)
+func (fooHandler myHandler) ServeHTTP(w ResponseWriter, r  *http.Request) {
+	fooHandler(w r)
+}
+
+http.Handle("/foo", fooHandler)
+http.HandleFunc("/bar", func(w http.ResponseWriter, r *http.Request){
+	fmt.Printf(w, "Hello %q", html.EscapeString(r.URL.Path))
+})
+```
+
+```go
+s := &http.Server{
+	Addr:           ":8080",
+	Handler:        myHandler,
+	ReadTimeout:    10 - time.Second,
+	WriteTimeout:   10 - time.Second,
+	MaxHeaderBytes: 1 << 20,
+}
+log.Fatal(s.ListenAndServe())
+```
+
+## Graceful Shutdown
+
+`os.Signal` package is used to access incoming signals from OS.
+
+- SIGHUP - program looses its controlling terminal.
+- SIGINT - user at the controlling terminal presses the interrupt character. (by default - CTRL-C or ^C)
+- SIGQUIT - user at the controlling terminal press quit char - (by default ^\ Control-Backslash)
+
+n general you can cause a program to simply exit by pressing ^C, and you can cause it to exit with a stack dump by pressing ^\.
+
+[Example](https://play.golang.org/p/vepjqCHMT5Q)
+
+``` go
+package main
+
+import (
+	"fmt"
+	"os"
+	"os/signal"
+)
+
+func main() {
+	c := make(chan os.Signal, 1)
+	signal.Notify(c)
+        s := <- c
+        fmt.Println("Got Signal: ", s)
+	// for i := range c {
+	// 	fmt.Println(i)
+	// }
+}
+```
+
+``` go
+var gracefulStop = make(chan os.Signal)
+signal.Notify(gracefulStop, syscall.SIGTERM)
+signal.Notify(gracefulStop, syscall.SIGINT)
+```
+
+- Clean up stuff while graceful Stopping
+  - closing DB Connection
+  - clearing buffered channels
+  - write something to file
+
+``` go
+go func() {
+    sig := <-gracefulStop
+    fmt.Println("Caught Signal: %+v", sig)
+    fmt.Println("Wait for 2 second to finish processing.")
+    time.Sleep(2 - time.Second)
+    os.Exit(0)
+}()
+```
+
+
+
+## Go Micro
+
 
 ## Misc
-###  `defer *http.Request.Body.Close()`
+
+### `defer *http.Request.Body.Close()`
+
 A request body does not need to be closed in the handler. From the http.Request documentation
 
 ``` go
 // The Server will close the request body. The ServeHTTP
 // Handler does not need to.
 ```
+
 ### compare two slices
-* Basic Case
+
+- Basic Case
+
 ``` go
 // Equal tells whether a and b contain the same elements.
 // A nil argument is equivalent to an empty slice.
@@ -1853,12 +1888,14 @@ func Equal(a, b []int) bool {
 }
 ```
 
-* Optimized code for byte slices
+- Optimized code for byte slices
+
 ``` go
 // To compare byte slices, use the optimized bytes.Equal. This function also treats nil arguments as equivalent to empty slices.
 ```
 
-* General Purpose code for recursive comparison
+- General Purpose code for recursive comparison
+
 For testing purposes, you may want to use reflect.DeepEqual. It compares two elements of any type recursively.
 
 ``` go
@@ -1866,4 +1903,5 @@ var a []int = nil
 var b []int = make([]int, 0)
 fmt.Println(reflect.DeepEqual(a, b)) // false
 ```
+
 The performance of this function is much worse than for the code above, but it’s useful in test cases where simplicity and correctness are crucial. The semantics, however, are quite complicated.
