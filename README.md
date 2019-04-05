@@ -11,6 +11,7 @@ Store examples with necessary instructions to install, so that other people can 
 ## Table of Contents
 
 - [Tour of Golang](#tour-of-golang)
+- [Go Tooling](#go-tooling)
 - [Slices](#slices)
 - [Go by examples](#go-by-examples)
 - [Go Modules](#go-modules)
@@ -28,7 +29,7 @@ Store examples with necessary instructions to install, so that other people can 
 
 - Multiple Results
 
-``` go
+```go
 func swap(x, y string) (string, string) {
     return y, x
 }
@@ -41,7 +42,7 @@ func main() {
 
 - Named Return Values
 
-``` go
+```go
 func split(sum int) (x, y int) {
     x = sum - 4 / 9
     y = sum - x
@@ -51,7 +52,7 @@ func split(sum int) (x, y int) {
 
 - Stacking Defers
 
-``` go
+```go
 func main() {
 	fmt.Println("counting")
 
@@ -65,14 +66,14 @@ func main() {
 
 - Pointers
 
-``` go
+```go
 primes := [6]int{1,2,3,4,5,6}
 var s []int = primes[1:4]
 ```
 
 - Slices are like references to arrays
 
-``` go
+```go
 names := [4]string{
     "John", "Paul", "George", "Ringo",
 }
@@ -95,9 +96,10 @@ Outputs
 [John XXX George Ringo]
 */
 ```
+
 - Slice Literals
 
-``` go
+```go
 q := []int{2, 3, 5, 7, 11, 13}
 fmt.Println(q)
 
@@ -114,15 +116,15 @@ s := []struct{
             {1, true},
     }
 ```
+
 First an array is created then builds a slice that references it.
 
 - Slice Length and capacity
-  + length: number of element it contains
-  + capacity: number of elements in the underlying array, counting fromt the first element in the slice.
-  + we can extend slice if it has enough capacity. extending beyond capacity throws `panic: runtime error: slice bounds out of range`
+     - length: number of element it contains
+     - capacity: number of elements in the underlying array, counting fromt the first element in the slice.
+     - we can extend slice if it has enough capacity. extending beyond capacity throws `panic: runtime error: slice bounds out of range`
 
-
-``` go
+```go
 s := []int{1,2,3,4,5,6,7}
 // len(s)     => 7
 // cap(s)     => 7
@@ -145,8 +147,8 @@ s = s[2:] // droping its first two values
 ```
 
 - Nil value of slice
-  - the zero value of slice is nil
-  - nil slice has a length and capacity of 0 and has `no underlying array`.
+     - the zero value of slice is nil
+     - nil slice has a length and capacity of 0 and has `no underlying array`.
 
 ```go
 var s []int
@@ -160,13 +162,15 @@ if s == nil {
 ```
 
 - Creating a slice with make
-the `make` function allocates a zeroed array and returns a slice that refers to the array.
+  the `make` function allocates a zeroed array and returns a slice that refers to the array.
 
-``` go
+```go
 a := make([]int, 5) // len(a) = 5
 ```
+
 to specify a capacity, pass a third arg
-``` go
+
+```go
 b := make([]int, 0, 5) // len(b) = 0; cap(b) = 5
 b = b[:cap(b)]         // len(b) = 5; cap(b) = 5
 b = b[1:]              // len(b) = 4; cap(b) = 4
@@ -174,7 +178,7 @@ b = b[1:]              // len(b) = 4; cap(b) = 4
 
 - Slices of slices
 
-``` go
+```go
 board := [][]string{
     []string{"_", "_", "_"},
     []string{"_", "_", "_"},
@@ -184,7 +188,7 @@ board := [][]string{
 
 - Appending to a slice
 
-``` go
+```go
 var s, t []int
 t = []int{4,5,6}
 s = append(s, 1)
@@ -196,7 +200,7 @@ fmt.Println(s) => [1,2,3,4,5,6]
 
 - Exercise: Slices
 
-``` go
+```go
 package main
 
 import "golang.org/x/tour/pic"
@@ -222,7 +226,7 @@ func main() {
 
 - Maps
 
-``` go
+```go
 type Vertex struct{Lat, Long float64}
 var m map[string]Vertex
 
@@ -235,7 +239,7 @@ func main() {
 
 - Map literals
 
-``` go
+```go
 type Vertex struct {Lat, Long float64}
 
 var m = map[string]Vertex{
@@ -246,7 +250,7 @@ var m = map[string]Vertex{
 
 - Mutating Maps
 
-``` go
+```go
 m := make(map[string]interface{})
 m["alamin"] = "Mahamud"
 name = m["alamin"]
@@ -256,7 +260,7 @@ element, ok := m["alamin"]
 
 - Exercise Maps
 
-``` go
+```go
 func WordCount(s string) map[string]int {
 	m := make(map[string]int)
 	words := strings.Fields(s)
@@ -266,9 +270,10 @@ func WordCount(s string) map[string]int {
 	return m
 }
 ```
+
 - Functions as values
 
-``` go
+```go
 func compute(fn func(float64, float64) float64) float64 {
     return fn(3, 4)
 }
@@ -284,7 +289,8 @@ fun main() {
 ```
 
 - Function closures
-``` go
+
+```go
 func adder() func (int) int {
     sum := 0
     return func (x int) int {
@@ -306,7 +312,7 @@ func main() {
 
 - Exercise Fibonacci Series
 
-``` go
+```go
 func fib() func() int {
     n := 0
     a := 0
@@ -335,9 +341,11 @@ func main() {
     }
 }
 ```
+
 - Choosing a value or pointer receiver
-  - if you use pointer receiver data is refernced, not copied so you can modify it and don't need to use storage
-``` go
+     - if you use pointer receiver data is refernced, not copied so you can modify it and don't need to use storage
+
+```go
 type Vertex struct{
     X, Y float64
 }
@@ -352,12 +360,13 @@ func (v *Vertex) Abs() float64 {
 }
 
 ```
-- Interface values
-  - `(value, type)`
-  - an interface value holds a value of a specific underlying concrete type.
-  - calling a method on an interface value executes the method of the same name on its underlying type.
 
-``` go
+- Interface values
+     - `(value, type)`
+     - an interface value holds a value of a specific underlying concrete type.
+     - calling a method on an interface value executes the method of the same name on its underlying type.
+
+```go
 type I interface{
     M()
 }
@@ -372,10 +381,11 @@ type F float64
 func (f *F) M() {fmt.Println(f)}
 
 ```
-- Interface values with nil underlying values
-  - If the concrete value inside the interface itself is nil, the method will be called with a nil receiver.
 
-``` go
+- Interface values with nil underlying values
+     - If the concrete value inside the interface itself is nil, the method will be called with a nil receiver.
+
+```go
 type I interface{M()}
 type T struct{S string}
 
@@ -409,11 +419,12 @@ hello
 */
 
 ```
-- Nil interface values
-  - A nil interface value holds neither value nor concrete type.
-  - Calling a method on a nil interface is a run-time error because there is no type inside the interface tuple to indicate which concrete method to call.
 
-``` go
+- Nil interface values
+     - A nil interface value holds neither value nor concrete type.
+     - Calling a method on a nil interface is a run-time error because there is no type inside the interface tuple to indicate which concrete method to call.
+
+```go
 type I interface {
 	M()
 }
@@ -437,12 +448,14 @@ panic: runtime error: invalid memory address or nil pointer dereference
 */
 
 ```
+
 - The empty interface
-  - The interface type that specifies zero methods is known as the empty interface
-  - `interface{}`
-  - An empty interface may hold values of any type. (Every type implements at least zero methods.)
-  - Empty interfaces are used by code that handles values of unknown type. For example, fmt.Print takes any number of arguments of type `interface{}`.
-``` go
+     - The interface type that specifies zero methods is known as the empty interface
+     - `interface{}`
+     - An empty interface may hold values of any type. (Every type implements at least zero methods.)
+     - Empty interfaces are used by code that handles values of unknown type. For example, fmt.Print takes any number of arguments of type `interface{}`.
+
+```go
 func main() {
 	var i interface{}
 	describe(i)
@@ -469,11 +482,12 @@ func describe(i interface{}) {
 ```
 
 - Type assertions
-  - `t := i.(T)`
-  - a type assertion provides access to an interface value's underlying concrete value.
-  - `i` holds the concrete type `T` and assigns the underlying `T` value to the variable `t`.
-  - if `i` does not hold `T`, the statement will trigger a `panic`.
-``` go
+     - `t := i.(T)`
+     - a type assertion provides access to an interface value's underlying concrete value.
+     - `i` holds the concrete type `T` and assigns the underlying `T` value to the variable `t`.
+     - if `i` does not hold `T`, the statement will trigger a `panic`.
+
+```go
 var i interface{} = "Hello"
 
 s := i.(string)
@@ -486,9 +500,10 @@ f, ok := i.(float64)
 fmt.Println(f, ok) // ---> 0, false & panic
 
 ```
+
 - Type Switches
 
-``` go
+```go
 switch v := i.(type){
     case T:
     // here v has type T
@@ -499,7 +514,7 @@ switch v := i.(type){
 }
 ```
 
-``` go
+```go
 func do(i interface{}) {
     switch v := i.(type) {
     case int:
@@ -528,9 +543,10 @@ I don't know about type bool!
 
 */
 ```
+
 - Stringers
 
-``` go
+```go
 type Stringer interface{
     String() string
 }
@@ -547,7 +563,7 @@ func (p Person) String() string{
 
 - Exercise Stringers
 
-``` go
+```go
 package main
 
 import "fmt"
@@ -582,13 +598,13 @@ googleDNS: 8.8.8.8
 
 - Errors
 
-``` go
+```go
 type error interface {
     Error() string
 }
 ```
 
-``` go
+```go
 type MyError struct {
     When time.Time
     What string
@@ -619,7 +635,7 @@ at 2009-11-10 23:00:00 +0000 UTC m=+0.000000001, it didn't work
 
 - Exercise errors
 
-``` go
+```go
 package main
 
 import (
@@ -647,9 +663,10 @@ func main() {
 }
 
 ```
+
 - Reader
 
-``` go
+```go
 package main
 
 import (
@@ -689,7 +706,7 @@ b[:n] = ""
 
 - Exercise Reader
 
-``` go
+```go
 package main
 
 import (
@@ -739,9 +756,10 @@ func Validate(r io.Reader) {
 fmt.Println("OK!")
 
 ```
+
 - Exercise Custom Reader
 
-``` go
+```go
 package main
 
 import (
@@ -790,9 +808,10 @@ func main() {
 }
 
 ```
+
 - Images
 
-``` go
+```go
 import (
 	"fmt"
 	"image"
@@ -808,7 +827,7 @@ func main() {
 
 - Exercise Images
 
-``` go
+```go
 package main
 
 import (
@@ -851,12 +870,12 @@ func main() {
 ```
 
 - Goroutines
-  - lightweight thread managed by go Runtime.
-  - `go f(x, y, z)`
-  - the evaluation happens on the current goroutine and the execution of f happens in the new goroutines
-  - goroutines run in the same address space, access to shared memory must be synchorized.
+     - lightweight thread managed by go Runtime.
+     - `go f(x, y, z)`
+     - the evaluation happens on the current goroutine and the execution of f happens in the new goroutines
+     - goroutines run in the same address space, access to shared memory must be synchorized.
 
-``` go
+```go
 func say(s string) {
     for i := 0; i < 5; i++ {
             time.Sleep(100 - time.Millisecond)
@@ -871,14 +890,14 @@ func main() {
 ```
 
 - Channel
-  - send and receive values with channel operator.
-  - `ch <- v` send v to channel
-  - `v := <- ch` receive from ch, and assign value to v.
-  - channels must be created before use.
-  - `ch := make(chan int)`
-  - by default, sends and receives block until the other side is ready. this allows goroutines to synchnorize w/o explicit locks or condition variables.
+     - send and receive values with channel operator.
+     - `ch <- v` send v to channel
+     - `v := <- ch` receive from ch, and assign value to v.
+     - channels must be created before use.
+     - `ch := make(chan int)`
+     - by default, sends and receives block until the other side is ready. this allows goroutines to synchnorize w/o explicit locks or condition variables.
 
-``` go
+```go
 func sum (s []int, c chan int) {
     sum := 0
 
@@ -902,12 +921,12 @@ func main(){
 ```
 
 - Buffered Channels
-  - channels can be buffered.
-  - `ch := make(chan int, 100)`
-  - sends to a buffered channel block only when the buffer is full.
-  - Receives block when the buffer is empty.
+     - channels can be buffered.
+     - `ch := make(chan int, 100)`
+     - sends to a buffered channel block only when the buffer is full.
+     - Receives block when the buffer is empty.
 
-``` go
+```go
 func main() {
     ch := make(chan int, 2)
     ch <- 1
@@ -923,7 +942,7 @@ func main() {
 
 ```
 
-``` go
+```go
 // overfilling buffer throws fatal error
 func main(){
     ch := make(chan int, 2)
@@ -946,17 +965,17 @@ goroutine 1 [chan send]:
 ```
 
 - Range and close
-  - A sender can `close` a channel to indicate that no more values will be sent.
-  - Receivers can test whether a channel has been closed by assigning a second parameter to the receive expression: after
-  - `v, ok := <-ch`
-  - `ok` is false if there are no more values to receive and the channel is `closed`.
-  - the loop for `i := range c` receives values from the channel repeatedly until it is closed.
-  - only the sender should close a channel, never the receiver. Sending on a closed channel will cause a panic.
-  - channels are not like files. you don't need to close them.
-  - closing is necessary when the receiver must be told there are no more values coming, such as to terminate a `range` loop.
-  - Note: you can send as many data into buffered channels; there are no problem doing that. But as soon as you try to receive more data than in the channel it throws `fatal error: all goroutines are asleep - deadlock!`.
+     - A sender can `close` a channel to indicate that no more values will be sent.
+     - Receivers can test whether a channel has been closed by assigning a second parameter to the receive expression: after
+     - `v, ok := <-ch`
+     - `ok` is false if there are no more values to receive and the channel is `closed`.
+     - the loop for `i := range c` receives values from the channel repeatedly until it is closed.
+     - only the sender should close a channel, never the receiver. Sending on a closed channel will cause a panic.
+     - channels are not like files. you don't need to close them.
+     - closing is necessary when the receiver must be told there are no more values coming, such as to terminate a `range` loop.
+     - Note: you can send as many data into buffered channels; there are no problem doing that. But as soon as you try to receive more data than in the channel it throws `fatal error: all goroutines are asleep - deadlock!`.
 
-``` go
+```go
 func fibonacci(n int, c chan int) {
     x, y := 0, 1
     for i := 0; i < n; i++ {
@@ -976,10 +995,10 @@ func main(){
 ```
 
 - Select
-  - wait on multiple communication operations
-  - `select` blocks until one of its cases can run, then it executes that case. it chooses one at random if multiple are ready.
+     - wait on multiple communication operations
+     - `select` blocks until one of its cases can run, then it executes that case. it chooses one at random if multiple are ready.
 
-``` go
+```go
 func main(){
     c := make(chan int)
     q := make(chan int)
@@ -1007,9 +1026,10 @@ func fibonacci(c, q chan int) {
     }
 }
 ```
+
 - Default Selection
 
-``` go
+```go
 func main(){
     tick := time.Tick(100 - time.Millisecond)
     boom := time.After(500 - time.Millisecond)
@@ -1030,7 +1050,8 @@ func main(){
 ```
 
 - Exercise - Equivalent Binary Trees
-``` go
+
+```go
 type Tree struct{
     Left *Tree
     Right *Tree
@@ -1038,7 +1059,7 @@ type Tree struct{
 }
 ```
 
-``` go
+```go
 package main
 
 import (
@@ -1105,7 +1126,7 @@ func main() {
 
 - sync.Mutex
 
-``` go
+```go
 type SafeCounter struct {
     v map[string]int
     mutex sync.Mutex
@@ -1134,9 +1155,10 @@ func main(){
     fmt.Println(c.Value("SomeKey"))
 }
 ```
+
 - Web Crawler
 
-``` go
+```go
 package main
 
 import (
@@ -1254,6 +1276,25 @@ var fetcher = fakeFetcher{
 
 ```
 
+## Go Tooling
+
+```shell
+$ cat > main.go
+$ go run main.go
+$ gofmt main.go # Outputs the formatted code in shell
+$ gofmt -d main.go # Outputs the diff between formatted code and original code
+$ gofmt -w main.go # Replace original with formatted code
+$ go build
+$ go install
+$ go run main.go
+$ go list -f '{{ .Name }}: {{ .Doc }}'
+$ go list -f '{{ join .Imports "\n"}}'
+$ go doc
+$ go doc fmt
+$ go doc fmt Printf
+$ godoc -http :6060
+```
+
 ## Slices
 
 Arrays examples
@@ -1279,7 +1320,7 @@ s := make([]byte, 5) // Capacity == Length by default
 
 - Hello World
 
-``` go
+```go
 package main
 import "fmt"
 func main() {
@@ -1295,7 +1336,7 @@ go build hello-world.go
 
 - Values
 
-``` go
+```go
 package main
 import "fmt"
 func main() {
@@ -1312,7 +1353,7 @@ func main() {
 }
 ```
 
-``` bash
+```bash
 $ go run values.go
 golang
 1+1 = 2
@@ -1324,7 +1365,7 @@ false
 
 - Go Variables
 
-``` go
+```go
 var a = "initial"
 fmt.Println(a)
 
@@ -1341,7 +1382,7 @@ f := "short"
 fmt.Println(f)
 ```
 
-``` bash
+```bash
 $ go run variables.go
 initial
 1 2
@@ -1351,10 +1392,10 @@ short
 ```
 
 - Constants
-  - A numeric constant has no type until it’s given one, such as by an explicit cast.
-  - A number can be given a type by using it in a context that requires one, such as a variable assignment or function call. For example, here math.Sin expects a float64.
+     - A numeric constant has no type until it’s given one, such as by an explicit cast.
+     - A number can be given a type by using it in a context that requires one, such as a variable assignment or function call. For example, here math.Sin expects a float64.
 
-``` go
+```go
 const s string = "constant"
 
 fmt.Println(s)
@@ -1364,7 +1405,7 @@ fmt.Println(int64(d))
 fmt.Println(math.Sin(n))
 ```
 
-``` bash
+```bash
 $ go run constant.go
 constant
 6e+11
@@ -1374,7 +1415,7 @@ constant
 
 - For
 
-``` go
+```go
 i := 1
 // Single condition
 for i <= 3 {
@@ -1406,7 +1447,7 @@ for n := 0; n <= 5; n++ {
 
 - If else
 
-``` go
+```go
 if 7%2 == 0 {
     fmt.Println("7 is even")
 } else {
@@ -1434,7 +1475,7 @@ if num := 9; num < 0 {
 
 - Switch
 
-``` go
+```go
 i := 2
 fmt.Println("Write ", i, " as ")
 switch i {
@@ -1585,7 +1626,7 @@ go build
 
 #### tar
 
-``` go
+```go
 package main
 
 import "fmt"
@@ -1687,11 +1728,11 @@ One of the important things to note about RabbitMQ is that it stores data based 
 
 What this means for usage in Docker is that we should specify -h/--hostname explicitly for each daemon so that we don't get a random hostname and can keep track of our data:
 
-``` bash
+```bash
 docker run -d --hostname=my-rabbit --name=some-rabbit rabbitmq
 ```
 
-``` bash
+```bash
 # docker logs <container_name>
 docker logs some-rabbit
 ```
@@ -1700,10 +1741,9 @@ docker logs some-rabbit
 
 ### [authboss](https://github.com/volatiletech/authboss)
 
-
 ## JWT
 
-``` go
+```go
 package main
 
 import "fmt"
@@ -1747,7 +1787,7 @@ func main() {
 
 - Use Token
 
-``` go
+```go
 token, err := createToken("string-to-generate-token")
 fatal(err)
 
@@ -1771,13 +1811,13 @@ fmt.Println(buf.String())
 ## Testing
 
 - Naming convention
-  - to identify Test Routine `func TestXxx(*testing.T)`
-  - file name should end with `_test.go`
-  - the file will be excluded while regular package builds
-  - but included while `go test` command runs
-  - help: `go help test`, `go help testflag`
+     - to identify Test Routine `func TestXxx(*testing.T)`
+     - file name should end with `_test.go`
+     - the file will be excluded while regular package builds
+     - but included while `go test` command runs
+     - help: `go help test`, `go help testflag`
 
-``` go
+```go
 func TestTimeConsuming(t *testing.T) {
     if testing.Short() {
             t.Skip("Skipping test in short mode.")
@@ -1833,7 +1873,7 @@ n general you can cause a program to simply exit by pressing ^C, and you can cau
 
 [Example](https://play.golang.org/p/vepjqCHMT5Q)
 
-``` go
+```go
 package main
 
 import (
@@ -1853,18 +1893,18 @@ func main() {
 }
 ```
 
-``` go
+```go
 var gracefulStop = make(chan os.Signal)
 signal.Notify(gracefulStop, syscall.SIGTERM)
 signal.Notify(gracefulStop, syscall.SIGINT)
 ```
 
 - Clean up stuff while graceful Stopping
-  - closing DB Connection
-  - clearing buffered channels
-  - write something to file
+     - closing DB Connection
+     - clearing buffered channels
+     - write something to file
 
-``` go
+```go
 go func() {
     sig := <-gracefulStop
     fmt.Println("Caught Signal: %+v", sig)
@@ -1874,10 +1914,7 @@ go func() {
 }()
 ```
 
-
-
 ## Go Micro
-
 
 ## Misc
 
@@ -1885,7 +1922,7 @@ go func() {
 
 A request body does not need to be closed in the handler. From the http.Request documentation
 
-``` go
+```go
 // The Server will close the request body. The ServeHTTP
 // Handler does not need to.
 ```
@@ -1894,7 +1931,7 @@ A request body does not need to be closed in the handler. From the http.Request 
 
 - Basic Case
 
-``` go
+```go
 // Equal tells whether a and b contain the same elements.
 // A nil argument is equivalent to an empty slice.
 func Equal(a, b []int) bool {
@@ -1912,7 +1949,7 @@ func Equal(a, b []int) bool {
 
 - Optimized code for byte slices
 
-``` go
+```go
 // To compare byte slices, use the optimized bytes.Equal. This function also treats nil arguments as equivalent to empty slices.
 ```
 
@@ -1920,7 +1957,7 @@ func Equal(a, b []int) bool {
 
 For testing purposes, you may want to use reflect.DeepEqual. It compares two elements of any type recursively.
 
-``` go
+```go
 var a []int = nil
 var b []int = make([]int, 0)
 fmt.Println(reflect.DeepEqual(a, b)) // false
