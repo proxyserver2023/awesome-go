@@ -24,6 +24,7 @@ Store examples with necessary instructions to install, so that other people can 
 - [Graceful Shutdown](#graceful-shutdown)
 - [Go Micro](#go-micro)
 - [Misc](#misc)
+- [References](#references)
 
 ## Tour of Golang
 
