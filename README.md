@@ -10,29 +10,28 @@ Store examples with necessary instructions to install, so that other people can 
 
 ## Table of Contents
 
-- [Concepts](#concepts)
-- [Examples](#examples)
-     - [Tour of Golang](./docs/tour-of-golang.md)
-     - [Go Tooling](./docs/go-tooling.md)
-     - [Slices](./docs/slices.md)
-     - [Go by examples](./docs/go-by-examples.md)
-     - [Standard Library](./standard-library)
-     - [RabbitMQ](./rabbitmq)
-     - [JWT](./jwt)
-     - [Testing](./testing)
-     - [ElasticSearch](./elasticsearch)
-     - [Graceful Shutdown](./docs/graceful-shutdown.md)
-     - [Misc](./docs/misc.md)
+- [Concepts with Examples](#concepts-with-examples)
 - [References](#references)
+     - [REST API Starter KIT](#rest-api-starter-kit)
 
-## Concepts
+## Concepts with Examples
 
-Improving Concepts & Theories behind Golang.
+Links for Some Good Examples and repositories. Each Link may contain additional documentation with necessary concepts to clarify.
 
-## Examples
-
-Links for Some Good Examples and repositories.
+- [Tour of Golang](./docs/tour-of-golang.md)
+- [Go Tooling](./docs/go-tooling.md)
+- [Slices](./docs/slices.md)
+- [Go by examples](./docs/go-by-examples.md)
+- [Standard Library](./standard-library)
+- [RabbitMQ](./rabbitmq)
+- [JWT](./jwt)
+- [Testing](./testing)
+- [ElasticSearch](./elasticsearch)
+- [Graceful Shutdown](./docs/graceful-shutdown.md)
+- [Misc](./docs/misc.md)
 
 ## References
 
-Here we will put some good links for reference purposes.
+### REST API Starter Kit
+
+- [qiangxue/golang-restful-starter-kit](https://github.com/qiangxue/golang-restful-starter-kit)
