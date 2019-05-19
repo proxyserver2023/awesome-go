@@ -21,8 +21,8 @@ Store examples with necessary instructions to install, so that other people can 
      - [JWT](./jwt)
      - [Testing](./testing)
      - [ElasticSearch](./elasticsearch)
-     - [Graceful Shutdown](./graceful-shutdown)
-     - [Misc](./docs/misc)
+     - [Graceful Shutdown](./docs/graceful-shutdown.md)
+     - [Misc](./docs/misc.md)
 - [References](#references)
 
 ## Concepts
