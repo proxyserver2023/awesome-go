@@ -20,6 +20,7 @@ Links for Some Good Examples and repositories. Each Link may contain additional 
 
 - [Concurrency](./concurrency)
      - [Making Concurrent API Reuqest](./concurrency/README.md#making-concurrent-api-request)
+     - [Share memory by communicating](./concurrency/README.md#share-memory-by-communicating)
 - [ElasticSearch](./elasticsearch)
 - [Go Modules](./docs/go-modules.md)
 - [Go Tooling](./docs/go-tooling.md)
