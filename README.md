@@ -21,6 +21,7 @@ Links for Some Good Examples and repositories. Each Link may contain additional 
 - [Concurrency](./concurrency)
      - [Making Concurrent API Reuqest](./concurrency/README.md#making-concurrent-api-request)
 - [ElasticSearch](./elasticsearch)
+- [Go Modules](./docs/go-modules.md)
 - [Go Tooling](./docs/go-tooling.md)
 - [Go by examples](./docs/go-by-examples.md)
 - [Graceful Shutdown](./docs/graceful-shutdown.md)

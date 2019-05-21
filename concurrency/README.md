@@ -72,3 +72,22 @@ func Poller(in, out chan *Resource) {
 ```
 
 ```
+
+## Share memory by communicating
+
+```go
+var urls = []string{
+        "http://www.google.com/",
+        "http://golang.org/",
+        "http://blog.golang.org/",
+}
+
+
+// State represents the last known state of a URL.
+type State struct {
+        url string
+        status string
+}
+
+
+```
