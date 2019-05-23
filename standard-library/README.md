@@ -99,3 +99,45 @@ req, err := http.NewRequest("GET", "http://example.com", nil)
 req.Header.Add("If-None-Match", `W/"wyzzy"`)
 resp, err := client.Do(req)
 ```
+
+### HTTP call with a HTTP Client
+
+```go
+request, reqErr := http.NewRequest("GET", "http://example.com", nil)
+client := &http.Client{
+        Timeout: time.Duration(10 * time.Second),
+}
+response, resErr := client.Do(request)
+```
+
+### Dump HTTP Request
+
+```go
+package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+	"net/http/httputil"
+
+	"github.com/gorilla/mux"
+)
+
+func DumpRequest(w http.ResponseWriter, req *http.Request) {
+	requestDump, err := httputil.DumpRequest(req, true)
+	if err != nil {
+		fmt.Fprint(w, err.Error())
+	} else {
+		fmt.Fprint(w, string(requestDump))
+	}
+}
+
+func main() {
+	router := mux.NewRouter()
+	router.HandleFunc("/get", DumpRequest).Methods("GET")
+	router.HandleFunc("/post", DumpRequest).Methods("POST")
+	log.Fatal(http.ListenAndServe(":12345", router))
+}
+
+```

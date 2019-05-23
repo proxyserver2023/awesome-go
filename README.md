@@ -21,6 +21,7 @@ Links for Some Good Examples and repositories. Each Link may contain additional 
 - [Concurrency](./concurrency)
      - [Making Concurrent API Reuqest](./concurrency/README.md#making-concurrent-api-request)
      - [Share memory by communicating](./concurrency/README.md#share-memory-by-communicating)
+     - [Block for goroutine execution](./concurrency/README.md#block-for-goroutine-execution)
 - [ElasticSearch](./elasticsearch)
 - [Go Modules](./docs/go-modules.md)
 - [Go Tooling](./docs/go-tooling.md)
@@ -32,6 +33,7 @@ Links for Some Good Examples and repositories. Each Link may contain additional 
 - [Redis](./redis)
 - [Slices](./docs/slices.md)
 - [Standard Library](./standard-library)
+     - [Dump HTTP Request](./standard-library/README.md#dump-http-request)
 - [Testing](./testing)
 - [Tour of Golang](./docs/tour-of-golang.md)
 
