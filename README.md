@@ -35,6 +35,7 @@ Links for Some Good Examples and repositories. Each Link may contain additional 
 - [Standard Library](./standard-library)
      - [Dump HTTP Request](./standard-library/README.md#dump-http-request)
 - [Testing](./testing)
+     - [Benchmarking Code](./testing/README.md#benchmarking-code)
 - [Tour of Golang](./docs/tour-of-golang.md)
 
 ## References
